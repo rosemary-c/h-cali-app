@@ -5,7 +5,7 @@ export const routines = {
 		['bridges'],
 	],
 	workweek: [
-		['pull_ups'],
+		['push_ups'],
 		['bridges'],
 		['pull_ups'],
 		['leg_raises'],
