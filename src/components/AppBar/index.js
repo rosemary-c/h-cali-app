@@ -6,19 +6,30 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
+import { useHistory, useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
   title: {
+    color: 'white',
     flexGrow: 1,
     textAlign: 'center',
+    textTransform: 'capitalize',
   },
 }));
 
 function HeaderBar() {
   const classes = useStyles();
+  const history = useHistory();
+  const location = useLocation();
+  const [rid, setRoutineId] = React.useState('hamptons');
+
+  React.useEffect(() => {
+    const newId = location.pathname.split('/')[2];
+    setRoutineId(newId);
+  }, [location.pathname]);
 
   return (
     <AppBar position="static">
@@ -26,9 +37,11 @@ function HeaderBar() {
         <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" className={classes.title}>
-          Hybrid Calisthenics
-        </Typography>
+        <Button className={classes.title} onClick={() => history.push(`/routines/${rid}`)}>
+          <Typography variant="h6">
+            Hybrid Calisthenics
+          </Typography>
+        </Button>
         <Button color="inherit">Login</Button>
       </Toolbar>
     </AppBar>

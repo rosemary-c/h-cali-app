@@ -4,7 +4,8 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import { makeStyles } from '@material-ui/core/styles';
 import { lighten } from '@material-ui/core';
 import { routines } from 'data';
-import RoutineTable from 'components/Routine';
+import RoutineTable from 'components/RoutineCard';
+import { useHistory, useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   group: {
@@ -20,20 +21,22 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function WorkoutRoutine() {
+function WorkoutRoutineHomePage() {
   const classes = useStyles();
-  const [routineName, setRoutine] = React.useState('hamptons');
+  const history = useHistory();
+  const { rid = 0 } = useParams();
+
   const [workoutIdx, setWorkout] = React.useState(0);
-  const routine = routines[routineName];
-  const btnClass = (value) => `${classes.btn} ${routineName === value ? classes.active : ''}`
+  const workout = routines[rid];
+  const btnClass = (value) => `${classes.btn} ${rid === value ? classes.active : ''}`
 
   return (
     <>
       <ToggleButtonGroup
         className={classes.group}
-        value={routineName}
+        value={rid}
         exclusive={true}
-        onChange={(_, value) => value && setRoutine(value)}
+        onChange={(_, value) => value && history.push(`/routines/${value}`)}
         aria-label="Hybrid Calisthenics Routines"
       >
         <ToggleButton className={btnClass('hamptons')} value="hamptons" aria-label="Hampton's Routine">
@@ -43,9 +46,9 @@ function WorkoutRoutine() {
           Work Week Routine
         </ToggleButton>
       </ToggleButtonGroup>
-      {routine.map((workouts, i) => <RoutineTable workouts={workouts} idx={i} isActive={i === workoutIdx} />)}
+      {workout.map((exercises, wid) => <RoutineTable workouts={exercises} wid={wid} isActive={wid === workoutIdx} />)}
     </>
   );
 }
 
-export default WorkoutRoutine;
+export default WorkoutRoutineHomePage;

@@ -1,6 +1,6 @@
 import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import AppBar from 'components/AppBar';
-import Body from './components/Wrapper';
+import Router from './components/Router';
 
 const theme = createTheme({
   palette: {
@@ -14,7 +14,7 @@ function App() {
   return (
     <MuiThemeProvider theme={theme}>
       <AppBar position="static"/>
-      <Body />
+      <Router />
     </MuiThemeProvider>
   );
 }
