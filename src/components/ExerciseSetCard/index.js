@@ -25,16 +25,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ExerciseCard({ eid }) {
+export default function ExerciseSetCard({ eid }) {
   const history = useHistory();
   const classes = useStyles();
   const pid = 0; // progression idx
   const exercise = progressions[eid][pid];
 
-  const handleEditClick = () => history.push(`${window.location.pathname}/exercises/${eid}`);
+  const handleEditClick = () => history.push(`${window.location.pathname}/${eid}`);
 
   return (
-    <Card className={classes.card} variant="outlined">
+    <Card className={classes.card}>
       <CardContent className={classes.action}>
         <Grid container className={classes.grid} spacing={2}>
           <Grid item xs={6}>
@@ -48,7 +48,7 @@ export default function ExerciseCard({ eid }) {
             </IconButton>
           </Grid>
           <Grid item xs={6} className={classes.set}>
-            <Typography variant="body1" align="right" gutterBottom color="textSecondary">
+            <Typography align="right" gutterBottom color="textSecondary">
               {getSetRepStr(exercise)}
             </Typography>
           </Grid>

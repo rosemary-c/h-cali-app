@@ -1,12 +1,14 @@
 import { makeStyles } from '@material-ui/core/styles';
 import WorkoutRoutineHomePage from 'pages/Home';
-import WorkoutDetailsPage from 'pages/WorkoutDetailsPage';
+import WorkoutExercisesPage from 'pages/WorkoutExercisesPage';
+import EditExerciseProgressionPage from 'pages/EditProgressionPage';
 import React from 'react';
 import { Route, Redirect, Switch } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   body: {
-   padding: theme.spacing(2),
+    backgroundColor: 'whitesmoke',
+    padding: theme.spacing(2),
   },
 }));
 
@@ -20,14 +22,11 @@ function Router() {
         <Route exact path="/routines/:rid">
           <WorkoutRoutineHomePage />
         </Route>
-        <Route exact path="/routines/:rid/workouts/:wid">
-          <WorkoutDetailsPage />
-        </Route>
         <Route exact path="/routines/:rid/workouts/:wid/exercises">
-          <div>exercises</div>
+          <WorkoutExercisesPage />
         </Route>
         <Route exact path="/routines/:rid/workouts/:wid/exercises/:eid">
-          <div>edit exercises</div>
+          <EditExerciseProgressionPage />
         </Route>
         <Redirect to="/routines/hamptons" />
       </Switch>

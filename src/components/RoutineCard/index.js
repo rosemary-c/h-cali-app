@@ -24,7 +24,7 @@ export default function RoutineTable({ workouts: exercises, wid = 0, isActive })
 
   return (
     <Card className={classes.card}>
-      <CardActionArea className={classes.action} onClick={() => history.push(`${window.location.pathname}/workouts/${wid}`)}>
+      <CardActionArea className={classes.action} onClick={() => history.push(`${window.location.pathname}/workouts/${wid}/exercises`)}>
         <Typography variant="h5" gutterBottom>{`Workout ${wid + 1}`}</Typography>
         <Table size="small" aria-label="a dense table">
           <TableBody>

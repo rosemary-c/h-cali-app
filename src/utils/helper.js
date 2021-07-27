@@ -1,6 +1,6 @@
 export const getExerciseVariation = (exercise) => {
   const { name, variation } = exercise;
-  const variationText = variation && `(${variation}`;
+  const variationText = variation && `(${variation})`;
   return `${name} ${variationText}`;
 };
 
