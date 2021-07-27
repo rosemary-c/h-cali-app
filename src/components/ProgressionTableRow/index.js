@@ -4,10 +4,12 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import { progressions } from 'data';
 import { getExerciseVariation, getSetRepStr } from 'utils/helper';
+import { useSessionStorage } from 'hooks/useSessionStorage';
 
 function ProgressionRow({ eid }) {
-  const [progressionIdx, setProgression] = React.useState(0);
-  const exercise = progressions[eid][progressionIdx];
+  const { selectedProgressions } = useSessionStorage();
+  const pid = selectedProgressions[eid] ?? 0;
+  const exercise = progressions[eid][pid];
 
   return (
     <TableRow key={exercise.name}>

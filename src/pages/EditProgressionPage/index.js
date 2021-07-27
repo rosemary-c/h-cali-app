@@ -5,6 +5,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import { useParams } from "react-router-dom";
 import { progressions } from 'data';
 import { getExerciseVariation, getSetRepStr } from 'utils/helper';
+import { useSessionStorage } from 'hooks/useSessionStorage';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -21,14 +22,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EditExerciseProgressionPage({ pid = 0 }) {
+export default function EditExerciseProgressionPage() {
+  const { selectedProgressions, setProgressions } = useSessionStorage();
   const { eid } = useParams();
   const classes = useStyles();
-  const [progressionId, setProgression] = React.useState(pid);
+  const [pid, setPid] = React.useState(selectedProgressions[eid] ?? 0);
   const exercises = progressions[eid];
 
-  const handleClick = (idx) => setProgression(idx);
-  const isActive = i => i === progressionId;
+  React.useEffect(() => {
+    return () => {
+      setProgressions({ ...selectedProgressions, [eid]: pid });
+      debugger;
+    };
+  }, []);
+
+  const handleClick = (idx) => setPid(idx);
+  const isActive = i => i === pid;
   const className = i => `${classes.card} ${isActive(i) ? classes.active : ''}`;
 
   return exercises.map((ex, i) => (

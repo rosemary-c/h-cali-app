@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { lighten } from '@material-ui/core';
 import { routines } from 'data';
 import RoutineTable from 'components/RoutineCard';
+import { useSessionStorage } from 'hooks/useSessionStorage';
 import { useHistory, useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,11 +25,14 @@ const useStyles = makeStyles((theme) => ({
 function WorkoutRoutineHomePage() {
   const classes = useStyles();
   const history = useHistory();
-  const { rid = 0 } = useParams();
+  const { rid = 'hamptons' } = useParams();
+  const { currentWorkoutId: wid } = useSessionStorage();
 
-  const [workoutIdx, setWorkout] = React.useState(0);
-  const workout = routines[rid];
-  const btnClass = (value) => `${classes.btn} ${rid === value ? classes.active : ''}`
+  const workouts = [
+    ...routines[rid].slice(wid),
+    ...routines[rid].slice(0, wid)
+  ];
+  const btnClass = (value) => `${classes.btn} ${rid === value ? classes.active : ''}`;
 
   return (
     <>
@@ -46,7 +50,7 @@ function WorkoutRoutineHomePage() {
           Work Week Routine
         </ToggleButton>
       </ToggleButtonGroup>
-      {workout.map((exercises, wid) => <RoutineTable workouts={exercises} wid={wid} isActive={wid === workoutIdx} />)}
+      {workouts.map((exercises, i) => <RoutineTable workouts={exercises} wid={i} isActive={i === wid} />)}
     </>
   );
 }
