@@ -5,7 +5,6 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import { useParams } from "react-router-dom";
 import { progressions } from 'data';
 import { getExerciseVariation, getSetRepStr } from 'utils/helper';
-import { useSessionStorage } from 'hooks/useSessionStorage';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -22,31 +21,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EditExerciseProgressionPage() {
-  const { selectedProgressions, setProgressions } = useSessionStorage();
+export default function EditExerciseProgressionPage({ selectedProgressions, setProgressions }) {
   const { eid } = useParams();
   const classes = useStyles();
-  const [pid, setPid] = React.useState(selectedProgressions[eid] ?? 0);
   const exercises = progressions[eid];
+  const pid = parseInt(selectedProgressions[eid]) || 0;
 
-  React.useEffect(() => {
-    return () => {
-      setProgressions({ ...selectedProgressions, [eid]: pid });
-      debugger;
-    };
-  }, []);
-
-  const handleClick = (idx) => setPid(idx);
-  const isActive = i => i === pid;
-  const className = i => `${classes.card} ${isActive(i) ? classes.active : ''}`;
+  const handleClick = (idx) => setProgressions({ ...selectedProgressions, [eid]: idx });
+  const isActive = (i) => i === pid;
+  const className = (i) => `${classes.card} ${isActive(i) ? classes.active : ""}`;
 
   return exercises.map((ex, i) => (
     <Card className={className(i)} variant="outlined">
       <CardActionArea className={classes.action} onClick={() => handleClick(i)}>
-        <Typography variant="h5" color={isActive(i) ? 'white' : ''} component="p">
+        <Typography variant="h5" color={isActive(i) ? "white" : undefined} component="p">
           {getExerciseVariation(ex)}
         </Typography>
-        <Typography variant="h6" color={isActive(i) ? 'white' : 'textSecondary'} component="p">
+        <Typography variant="h6" color={isActive(i) ? "white" : "textSecondary"} component="p">
           {getSetRepStr(ex)}
         </Typography>
       </CardActionArea>

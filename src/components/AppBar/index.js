@@ -6,8 +6,6 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import { useSessionStorage } from 'hooks/useSessionStorage';
-import { routines } from 'data';
 import { useHistory, useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,17 +20,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function HeaderBar() {
+function HeaderBar({ incrementWorkout, resetStorage }) {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
-  const [rid, setRoutineId] = React.useState('hamptons');
-  const { incrementWorkout } = useSessionStorage();
+  const [rid, setRoutineId] = React.useState("hamptons");
+  const [showFinish, setShowFinish] = React.useState(false);
+  const [showReset, setReset] = React.useState(false);
 
   React.useEffect(() => {
-    const newRid = location.pathname.split('/')[2];
+    const newRid = location.pathname.split("/")[2];
     setRoutineId(newRid);
+
+    setShowFinish(location.pathname.endsWith("/exercises"));
+    setReset(location.pathname.includes("/exercises/"));
   }, [location.pathname]);
+
+  const goHome = () => history.push(location.pathname.replace(/\/workouts.*$/, ""));
+
+  const handleFinish = () => {
+    incrementWorkout();
+    goHome();
+  };
+  
+  const handleReset = () => {
+    resetStorage();
+    goHome();
+  };
 
   return (
     <AppBar position="static">
@@ -41,11 +55,18 @@ function HeaderBar() {
           <MenuIcon />
         </IconButton>
         <Button className={classes.title} onClick={() => history.push(`/routines/${rid}`)}>
-          <Typography variant="h6">
-            Hybrid Calisthenics
-          </Typography>
+          <Typography variant="h6">Hybrid Calisthenics</Typography>
         </Button>
-        <Button color="inherit" onClick={incrementWorkout}>Finish</Button>
+        {showFinish && (
+          <Button color="inherit" onClick={handleFinish}>
+            Finish
+          </Button>
+        )}
+        {showReset && (
+          <Button color="inherit" onClick={handleReset}>
+            Reset
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );

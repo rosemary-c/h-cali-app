@@ -17,19 +17,27 @@ const useStyles = makeStyles((theme) => ({
     margin: `16px 0`,
   },
   set: {
-    display: 'flex',
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end',
+    display: "flex",
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+    minWidth: "50px",
   },
   edit: {
     width: theme.spacing(2.5),
+    height: theme.spacing(2.5),
+  },
+  btn: {
+    verticalAlign: "sub",
+  },
+  grid: {
+    marginTop: theme.spacing(1),
   },
 }));
 
-export default function ExerciseSetCard({ eid }) {
+export default function ExerciseSetCard({ eid, selectedProgressions }) {
   const history = useHistory();
   const classes = useStyles();
-  const pid = 0; // progression idx
+  const pid = parseInt(selectedProgressions[eid]) || 0;
   const exercise = progressions[eid][pid];
 
   const handleEditClick = () => history.push(`${window.location.pathname}/${eid}`);
@@ -39,7 +47,7 @@ export default function ExerciseSetCard({ eid }) {
       <CardContent className={classes.action}>
         <Box display="flex">
           <Box flexGrow={1}>
-            <Typography variant="h6" align="left" component="span" gutterBottom>
+            <Typography variant="h6" align="left" component="span">
               {getExerciseVariation(exercise)}
             </Typography>
             <IconButton
@@ -48,20 +56,19 @@ export default function ExerciseSetCard({ eid }) {
               component="span"
               size="small"
               onClick={handleEditClick}
+              className={classes.btn}
             >
-              <Typography variant="body2" align="right" color="primary">
-                <EditIcon className={classes.edit} />
-              </Typography>
+              <EditIcon className={classes.edit} />
             </IconButton>
           </Box>
           <Box className={classes.set}>
-            <Typography align="right" gutterBottom color="textSecondary">
+            <Typography align="right" color="textSecondary">
               {getSetRepStr(exercise)}
             </Typography>
           </Box>
         </Box>
 
-        <Grid container spacing={2}>
+        <Grid container spacing={2} className={classes.grid}>
           {[...Array(exercise.setValue)].map((_, i) => (
             <Grid item xs={4} key={i}>
               <RepBtn repValue={exercise.repValue} />

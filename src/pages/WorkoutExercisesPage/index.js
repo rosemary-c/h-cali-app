@@ -22,14 +22,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function WorkoutExercisesPage() {
+function WorkoutExercisesPage({ selectedProgressions }) {
   const classes = useStyles();
-  const { rid = 'hamptons', wid = 0 } = useParams();
+  const { rid = "hamptons", wid = 0 } = useParams();
   const exercises = routines[rid][wid] || [];
 
   return (
     <div className={classes.wrapper}>
-      {exercises.map(eid => <ExerciseSetCard eid={eid} />)}
+      {exercises.map((eid) => (
+        <ExerciseSetCard eid={eid} selectedProgressions={selectedProgressions} />
+      ))}
     </div>
   );
 }

@@ -18,17 +18,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RoutineTable({ workouts: exercises, wid = 0, isActive }) {
+export default function RoutineTable({ workouts: exercises, wid = 0, isActive, selectedProgressions }) {
   const classes = useStyles({ isActive });
   const history = useHistory();
 
   return (
     <Card className={classes.card}>
-      <CardActionArea className={classes.action} onClick={() => history.push(`${window.location.pathname}/workouts/${wid}/exercises`)}>
-        <Typography variant="h5" gutterBottom>{`Workout ${wid + 1}`}</Typography>
+      <CardActionArea
+        className={classes.action}
+        onClick={() => history.push(`${window.location.pathname}/workouts/${wid}/exercises`)}
+      >
+        <Typography variant="h5" gutterBottom>{`Workout ${String.fromCharCode(
+          65 + wid
+        )}`}</Typography>
         <Table size="small" aria-label="a dense table">
           <TableBody>
-            {exercises.map((eid) => <ProgressionRow eid={eid} />)}
+            {exercises.map((eid) => (
+              <ProgressionRow eid={eid} selectedProgressions={selectedProgressions} />
+            ))}
           </TableBody>
         </Table>
       </CardActionArea>
