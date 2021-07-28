@@ -6,17 +6,6 @@ import { useParams } from "react-router-dom";
 import ExerciseSetCard from 'components/ExerciseSetCard';
 
 const useStyles = makeStyles((theme) => ({
-  group: {
-    width: '100%',
-  },
-  btn: {
-    width: '50%',
-  },
-  active: {
-    backgroundColor: 'white !important',
-    border: `1px solid ${lighten(theme.palette.primary.main, .5)} !important`,
-    color: `${theme.palette.primary.main} !important`
-  },
   wrapper: {
     margin: `${theme.spacing(2)} ${theme.spacing(1)}`
   }

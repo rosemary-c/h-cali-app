@@ -3,16 +3,16 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  active: {
-    color: "white !important",
-    backgroundColor: theme.palette.primary.main,
-  },
   btn: {
     color: "lightgray",
     width: "100%",
     borderRadius: "4px",
     border: "none",
     backgroundColor: "#EFEFEF",
+  },
+  active: {
+    color: "white",
+    backgroundColor: theme.palette.primary.main,
   },
 }));
 
