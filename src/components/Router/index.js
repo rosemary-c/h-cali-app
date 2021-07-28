@@ -7,7 +7,6 @@ import { Route, Redirect, Switch } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   body: {
-    backgroundColor: 'whitesmoke',
     padding: theme.spacing(2),
   },
 }));

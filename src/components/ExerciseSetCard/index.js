@@ -2,6 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
+import Box from "@material-ui/core/Box";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { useHistory } from "react-router-dom";
@@ -36,29 +37,36 @@ export default function ExerciseSetCard({ eid }) {
   return (
     <Card className={classes.card}>
       <CardContent className={classes.action}>
-        <Grid container className={classes.grid} spacing={2}>
-          <Grid item xs={6}>
+        <Box display="flex">
+          <Box flexGrow={1}>
             <Typography variant="h6" align="left" component="span" gutterBottom>
               {getExerciseVariation(exercise)}
             </Typography>
-            <IconButton aria-label="edit" color="primary" component="span" size="small" onClick={handleEditClick}>
+            <IconButton
+              aria-label="edit"
+              color="primary"
+              component="span"
+              size="small"
+              onClick={handleEditClick}
+            >
               <Typography variant="body2" align="right" color="primary">
                 <EditIcon className={classes.edit} />
               </Typography>
             </IconButton>
-          </Grid>
-          <Grid item xs={6} className={classes.set}>
+          </Box>
+          <Box className={classes.set}>
             <Typography align="right" gutterBottom color="textSecondary">
               {getSetRepStr(exercise)}
             </Typography>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
+
         <Grid container spacing={2}>
-          {[...Array(exercise.setValue)].map((_, i) =>
+          {[...Array(exercise.setValue)].map((_, i) => (
             <Grid item xs={4} key={i}>
               <RepBtn repValue={exercise.repValue} />
             </Grid>
-          )}
+          ))}
         </Grid>
       </CardContent>
     </Card>

@@ -7,7 +7,7 @@ export const useSessionStorage = () => {
 
   React.useEffect(() => {
     const progressionObj = JSON.parse(window.sessionStorage.getItem('progressions') || '{}');
-    const wid = parseInt(window.sessionStorage.getItem('currentWorkoutId')) ?? 0;
+    const wid = parseInt(window.sessionStorage.getItem('currentWorkoutId')) || 0;
     setProgressions(progressionObj);
     setWorkout(wid);
     debugger;
