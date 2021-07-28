@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+# Hybrid Calisthenics
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This workout routine is entirely based off of Hampton's calisthenic routine (https://www.hybridcalisthenics.com/routine). If you're tired of keeping track of your progressions on paper and forgetting how many reps you need to do then this app is for you!
+Live demo available at https://h-cali.herokuapp.com/
 
 ## Available Scripts
 
