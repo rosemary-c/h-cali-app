@@ -1,6 +1,8 @@
 import React from 'react';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import ToggleButton from '@material-ui/lab/ToggleButton';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import { lighten } from '@material-ui/core';
 import { routines } from 'data';
@@ -21,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function WorkoutRoutineHomePage({ wid, selectedProgressions }) {
+function WorkoutRoutineHomePage({ wid, selectedProgressions, setWorkout }) {
   const classes = useStyles();
   const history = useHistory();
   const { rid = "hamptons" } = useParams();
@@ -59,8 +61,18 @@ function WorkoutRoutineHomePage({ wid, selectedProgressions }) {
           wid={i}
           isActive={i === wid}
           selectedProgressions={selectedProgressions}
+          onClick={() => setWorkout(i)}
         />
       ))}
+
+      <Button
+        variant="contained"
+        color="primary"
+        width={1}
+        onClick={() => history.push(`${window.location.pathname}/workouts/${wid}/exercises`)}
+      >
+        <Box width={1}>Start Workout</Box>
+      </Button>
     </>
   );
 }

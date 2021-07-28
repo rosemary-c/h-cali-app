@@ -26,26 +26,21 @@ function HeaderBar({ incrementWorkout, resetStorage }) {
   const location = useLocation();
   const [rid, setRoutineId] = React.useState("hamptons");
   const [showFinish, setShowFinish] = React.useState(false);
-  const [showReset, setReset] = React.useState(false);
 
   React.useEffect(() => {
     const newRid = location.pathname.split("/")[2];
     setRoutineId(newRid);
 
     setShowFinish(location.pathname.endsWith("/exercises"));
-    setReset(location.pathname.includes("/exercises/"));
   }, [location.pathname]);
-
-  const goHome = () => history.push(location.pathname.replace(/\/workouts.*$/, ""));
 
   const handleFinish = () => {
     incrementWorkout();
-    goHome();
+    history.push(location.pathname.replace(/\/workouts.*$/, "")); // go home
   };
   
   const handleReset = () => {
     resetStorage();
-    goHome();
   };
 
   return (
@@ -57,12 +52,11 @@ function HeaderBar({ incrementWorkout, resetStorage }) {
         <Button className={classes.title} onClick={() => history.push(`/routines/${rid}`)}>
           <Typography variant="h6">Hybrid Calisthenics</Typography>
         </Button>
-        {showFinish && (
+        {showFinish ? (
           <Button color="inherit" onClick={handleFinish}>
             Finish
           </Button>
-        )}
-        {showReset && (
+        ) : (
           <Button color="inherit" onClick={handleReset}>
             Reset
           </Button>

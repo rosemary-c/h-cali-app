@@ -21,6 +21,7 @@ function Router() {
     resetStorage,
     selectedProgressions,
     setProgressions,
+    setWorkout,
   } = useSessionStorage();
 
   return (
@@ -33,6 +34,7 @@ function Router() {
             <WorkoutRoutineHomePage
               wid={currentWorkoutId}
               selectedProgressions={selectedProgressions}
+              setWorkout={setWorkout}
             />
           </Route>
           <Route exact path="/routines/:rid/workouts/:wid/exercises">

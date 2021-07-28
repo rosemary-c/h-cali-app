@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import ProgressionRow from 'components/ProgressionTableRow';
-import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   action: {
@@ -18,16 +17,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RoutineTable({ workouts: exercises, wid = 0, isActive, selectedProgressions }) {
+export default function RoutineTable({ workouts: exercises, wid = 0, isActive, selectedProgressions, onClick }) {
   const classes = useStyles({ isActive });
-  const history = useHistory();
 
   return (
     <Card className={classes.card}>
-      <CardActionArea
-        className={classes.action}
-        onClick={() => history.push(`${window.location.pathname}/workouts/${wid}/exercises`)}
-      >
+      <CardActionArea className={classes.action} onClick={onClick}>
         <Typography variant="h5" gutterBottom>{`Workout ${String.fromCharCode(
           65 + wid
         )}`}</Typography>
