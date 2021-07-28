@@ -32,7 +32,7 @@ export default function EditExerciseProgressionPage({ selectedProgressions, setP
   const className = (i) => `${classes.card} ${isActive(i) ? classes.active : ""}`;
 
   return exercises.map((ex, i) => (
-    <Card className={className(i)} variant="outlined">
+    <Card className={className(i)}>
       <CardActionArea className={classes.action} onClick={() => handleClick(i)}>
         <Typography variant="h5" color={isActive(i) ? "white" : undefined} component="p">
           {getExerciseVariation(ex)}
