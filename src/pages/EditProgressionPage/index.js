@@ -15,9 +15,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   active: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
+    borderLeft: `4px solid ${theme.palette.primary.main}`,
   },
 }));
 
@@ -31,16 +29,23 @@ export default function EditExerciseProgressionPage({ selectedProgressions, setP
   const isActive = (i) => i === pid;
   const className = (i) => `${classes.card} ${isActive(i) ? classes.active : ""}`;
 
-  return exercises.map((ex, i) => (
-    <Card className={className(i)}>
-      <CardActionArea className={classes.action} onClick={() => handleClick(i)}>
-        <Typography variant="h5" color={isActive(i) ? "white" : undefined} component="p">
-          {getExerciseVariation(ex)}
-        </Typography>
-        <Typography variant="h6" color={isActive(i) ? "white" : "textSecondary"} component="p">
-          {getSetRepStr(ex)}
-        </Typography>
-      </CardActionArea>
-    </Card>
-  ));
+  return (
+    <>
+      <Typography variant="h5" gutterBottom>
+        Edit exercise progression
+      </Typography>
+      {exercises.map((ex, i) => (
+        <Card className={className(i)}>
+          <CardActionArea className={classes.action} onClick={() => handleClick(i)}>
+            <Typography variant="h6" component="p">
+              {getExerciseVariation(ex)}
+            </Typography>
+            <Typography color="textSecondary" component="p">
+              {getSetRepStr(ex)}
+            </Typography>
+          </CardActionArea>
+        </Card>
+      ))}
+    </>
+  );
 }
