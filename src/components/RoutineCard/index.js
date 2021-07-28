@@ -23,9 +23,9 @@ export default function RoutineTable({ workouts: exercises, wid = 0, isActive, s
   return (
     <Card className={classes.card}>
       <CardActionArea className={classes.action} onClick={onClick}>
-        <Typography variant="h5" gutterBottom>{`Workout ${String.fromCharCode(
-          65 + wid
-        )}`}</Typography>
+        <Typography variant="h5" gutterBottom>
+          {`Workout ${String.fromCharCode(65 + wid)}`}
+        </Typography>
         <Table size="small" aria-label="a dense table">
           <TableBody>
             {exercises.map((eid) => (

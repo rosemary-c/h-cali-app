@@ -30,6 +30,11 @@ function WorkoutRoutineHomePage({ wid, selectedProgressions, setWorkout }) {
 
   const workouts = routines[rid];
   const btnClass = (value) => `${classes.btn} ${rid === value ? classes.active : ""}`;
+  const goToWorkout = () => history.push(`${window.location.pathname}/workouts/${wid}/exercises`);
+  const handleCardClick = (i) => {
+    setWorkout(i);
+    setTimeout(() => goToWorkout(), 100);
+  };
 
   return (
     <>
@@ -61,16 +66,11 @@ function WorkoutRoutineHomePage({ wid, selectedProgressions, setWorkout }) {
           wid={i}
           isActive={i === wid}
           selectedProgressions={selectedProgressions}
-          onClick={() => setWorkout(i)}
+          onClick={() => handleCardClick(i)}
         />
       ))}
 
-      <Button
-        variant="contained"
-        color="primary"
-        width={1}
-        onClick={() => history.push(`${window.location.pathname}/workouts/${wid}/exercises`)}
-      >
+      <Button variant="contained" color="primary" size={'large'} fullWidth={true} onClick={goToWorkout}>
         <Box width={1}>Start Workout</Box>
       </Button>
     </>
