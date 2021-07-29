@@ -60,6 +60,9 @@ export default function ExerciseSetCard({ eid, selectedProgressions }) {
             >
               <EditIcon className={classes.edit} />
             </IconButton>
+            <Typography align="left" component="p" color="textSecondary">
+              {exercise.note ?? ''}
+            </Typography>
           </Box>
           <Box className={classes.set}>
             <Typography align="right" color="textSecondary">

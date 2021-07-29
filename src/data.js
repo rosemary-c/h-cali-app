@@ -123,18 +123,21 @@ export const progressions = {
 			setValue: 1,
 			repValue: '30s',
 			variation: '',
+			note: 'Do hanging leg raises after your L-Hold workout to maintain a dynamic element to your core training.'
 		},
 		{
 			name: 'V-Hold',
 			setValue: 1,
 			repValue: '30s',
 			variation: '',
+			note: 'Do Hanging Leg Raises after your V-Hold workout to maintain a dynamic element to your core training.'
 		},
 		{
 			name: 'Hanging V-hold',
 			setValue: 1,
 			repValue: '60s',
 			variation: '',
+			note: 'Do hanging leg raises after your Hanging V-Hold workout to maintain a dynamic element to your core training.'
 		},
 	],
 	pull_ups: [
@@ -185,6 +188,7 @@ export const progressions = {
 			setValue: 2,
 			repValue: 7,
 			variation: 'Both Sides',
+			note: 'Train one side at a time. Alternating makes it easier. '
 		},
 		{
 			name: 'One-Arm Pull-Ups',
@@ -309,6 +313,7 @@ export const progressions = {
 			setValue: 2,
 			repValue: 20,
 			variation: '',
+			note: 'Work the eccentric (negative) portion of this first. Descend into a bridge and stand up normally. After you can do this well, lean back onto objects of decreasing height (stairs work well) until you can finally lean back into this exercise and stand back up with the power of your core and legs.'
 		},
 	],
 };
