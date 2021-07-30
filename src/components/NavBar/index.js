@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function HeaderBar({ incrementWorkout, resetStorage }) {
+export default function NavBar({ incrementWorkout, resetStorage }) {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
@@ -88,5 +88,3 @@ function HeaderBar({ incrementWorkout, resetStorage }) {
     </AppBar>
   );
 }
-
-export default HeaderBar;

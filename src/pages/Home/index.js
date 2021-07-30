@@ -30,10 +30,16 @@ function WorkoutRoutineHomePage({ wid, selectedProgressions, setWorkout }) {
 
   const workouts = routines[rid];
   const btnClass = (value) => `${classes.btn} ${rid === value ? classes.active : ""}`;
-  const goToWorkout = () => history.push(`${window.location.pathname}/workouts/${wid}/exercises`);
+  const goToWorkout = (i) => history.push(`${window.location.pathname}/workouts/${i}/exercises`);
   const handleCardClick = (i) => {
     setWorkout(i);
-    setTimeout(() => goToWorkout(), 100);
+    setTimeout(() => goToWorkout(i), 100);
+  };
+  const handleRoutineToggle = (value) => {
+    if (!value) return;
+
+    setWorkout(0);
+    history.push(`/routines/${value}`);
   };
 
   return (
@@ -42,7 +48,7 @@ function WorkoutRoutineHomePage({ wid, selectedProgressions, setWorkout }) {
         className={classes.group}
         value={rid}
         exclusive={true}
-        onChange={(_, value) => value && history.push(`/routines/${value}`)}
+        onChange={(_, value) => handleRoutineToggle(value)}
         aria-label="Hybrid Calisthenics Routines"
       >
         <ToggleButton

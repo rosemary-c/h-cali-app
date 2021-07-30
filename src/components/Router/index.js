@@ -2,10 +2,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import WorkoutRoutineHomePage from 'pages/Home';
 import WorkoutExercisesPage from 'pages/WorkoutExercisesPage';
 import EditExerciseProgressionPage from 'pages/EditProgressionPage';
-import HeaderBar from 'components/AppBar';
+import NavBar from 'components/NavBar';
 import React from 'react';
 import { useSessionStorage } from "hooks/useSessionStorage";
 import { Route, Redirect, Switch } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -26,7 +27,7 @@ function Router() {
 
   return (
     <>
-      <HeaderBar incrementWorkout={incrementWorkout} resetStorage={resetStorage} />
+      <NavBar incrementWorkout={incrementWorkout} resetStorage={resetStorage} />
       <div className={classes.body}>
         <Switch>
           <Redirect exact from="/" to="/routines/hamptons" />
