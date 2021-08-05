@@ -4,26 +4,27 @@ import { routines } from 'data';
 const initProgression = {};
 const initWid = -1;
 
-export const useSessionStorage = () => {
+export const useStorage = () => {
   const [selectedProgressions, setProgressions] = React.useState(initProgression);
   const [currentWorkoutId, setWorkout] = React.useState(initWid);
+  const storage = window.localStorage;
 
   React.useEffect(() => {
-    const progressionObj = JSON.parse(window.sessionStorage.getItem('progressions') || '{}');
-    const wid = parseInt(window.sessionStorage.getItem('currentWorkoutId')) || 0;
+    const progressionObj = JSON.parse(storage.getItem("progressions") || "{}");
+    const wid = parseInt(storage.getItem("currentWorkoutId")) || 0;
     setProgressions(progressionObj);
     setWorkout(wid);
   }, []);
 
   React.useEffect(() => {
     if (selectedProgressions !== initProgression) {
-      window.sessionStorage.setItem("progressions", JSON.stringify(selectedProgressions));
+      storage.setItem("progressions", JSON.stringify(selectedProgressions));
     }
   }, [selectedProgressions]);
 
   React.useEffect(() => {
     if (currentWorkoutId !== initWid) {
-      window.sessionStorage.setItem("currentWorkoutId", currentWorkoutId);
+      storage.setItem("currentWorkoutId", currentWorkoutId);
     }
   }, [currentWorkoutId]);
 

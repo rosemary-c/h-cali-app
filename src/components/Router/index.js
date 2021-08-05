@@ -4,7 +4,7 @@ import WorkoutExercisesPage from 'pages/WorkoutExercisesPage';
 import EditExerciseProgressionPage from 'pages/EditProgressionPage';
 import NavBar from 'components/NavBar';
 import React from 'react';
-import { useSessionStorage } from "hooks/useSessionStorage";
+import { useStorage } from "hooks/useStorage";
 import { Route, Redirect, Switch } from "react-router-dom";
 
 
@@ -23,7 +23,7 @@ function Router() {
     selectedProgressions,
     setProgressions,
     setWorkout,
-  } = useSessionStorage();
+  } = useStorage();
 
   return (
     <>
