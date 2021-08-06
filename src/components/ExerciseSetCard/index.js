@@ -34,13 +34,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ExerciseSetCard({ eid, selectedProgressions }) {
+export default function ExerciseSetCard({ eid, selectedProgressions, workoutHistory, workoutLogState }) {
   const history = useHistory();
   const classes = useStyles();
   const pid = parseInt(selectedProgressions[eid]) || 0;
   const exercise = progressions[eid][pid];
+  const [log, setLog] = workoutLogState;
 
   const handleEditClick = () => history.push(`${window.location.pathname}/${eid}`);
+  const getPreviousWorkout = () => {
+    const exerciseProgressionId = `${eid}_${pid}`;
+    const exerciseLogs = workoutHistory[exerciseProgressionId] || [];
+    const lastLog = exerciseLogs.slice(-1)[0]; // { date: number, sets: number[] }
+
+    if (!lastLog) return;
+
+    return `${new Date(lastLog.date).toLocaleString()}: [ ${lastLog.sets.join(" | ")} ]`;
+  };
+
+  const handleClickRep = (rep, i) => {
+    const exerciseProgressionId = `${eid}_${pid}`;
+    const exerciseLog = log[exerciseProgressionId] || [];
+    exerciseLog[i] = rep;
+
+    setLog({ ...log, [exerciseProgressionId]: exerciseLog });
+  };
 
   return (
     <Card className={classes.card}>
@@ -61,7 +79,7 @@ export default function ExerciseSetCard({ eid, selectedProgressions }) {
               <EditIcon className={classes.edit} />
             </IconButton>
             <Typography align="left" component="p" color="textSecondary">
-              {exercise.note ?? ''}
+              {exercise.note ?? ""}
             </Typography>
           </Box>
           <Box className={classes.set}>
@@ -71,10 +89,16 @@ export default function ExerciseSetCard({ eid, selectedProgressions }) {
           </Box>
         </Box>
 
+        {getPreviousWorkout() && (
+          <Typography color="textSecondary" variant="caption">
+            <Box fontFamily="Monospace">{getPreviousWorkout()}</Box>
+          </Typography>
+        )}
+
         <Grid container spacing={2} className={classes.grid}>
           {[...Array(exercise.setValue)].map((_, i) => (
             <Grid item xs={4} key={i}>
-              <RepBtn repValue={exercise.repValue} />
+              <RepBtn repValue={exercise.repValue} handleClick={(rep) => handleClickRep(rep, i)} />
             </Grid>
           ))}
         </Grid>

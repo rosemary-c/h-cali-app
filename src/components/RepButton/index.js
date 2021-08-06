@@ -16,17 +16,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RepButton({ repValue }) {
+export default function RepButton({ repValue, handleClick }) {
   const [rep, setRep] = React.useState(repValue);
   const [isActive, setActive] = React.useState(false);
   const classes = useStyles();
   
   const handleActiveClick = () => {
     if (rep === 0) setActive(false);
-    setRep(rep < 1 ? repValue : rep - 1);
+
+    const newRep = rep < 1 ? repValue : rep - 1;
+    setRep(newRep);
+    handleClick(newRep);
   };
   const handleInactiveClick = () => {
     setActive(true);
+    handleClick(repValue);
   };
 
   return isActive ? (

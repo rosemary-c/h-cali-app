@@ -23,11 +23,13 @@ function Router() {
     selectedProgressions,
     setProgressions,
     setWorkout,
+    workoutHistory,
+    setWorkoutHistory,
   } = useStorage();
 
   return (
     <>
-      <NavBar incrementWorkout={incrementWorkout} resetStorage={resetStorage} />
+      <NavBar resetStorage={resetStorage} />
       <div className={classes.body}>
         <Switch>
           <Redirect exact from="/" to="/routines/hamptons" />
@@ -39,7 +41,12 @@ function Router() {
             />
           </Route>
           <Route exact path="/routines/:rid/workouts/:wid/exercises">
-            <WorkoutExercisesPage selectedProgressions={selectedProgressions} />
+            <WorkoutExercisesPage
+              incrementWorkout={incrementWorkout}
+              selectedProgressions={selectedProgressions}
+              workoutHistory={workoutHistory}
+              setWorkoutHistory={setWorkoutHistory}
+            />
           </Route>
           <Route exact path="/routines/:rid/workouts/:wid/exercises/:eid">
             <EditExerciseProgressionPage

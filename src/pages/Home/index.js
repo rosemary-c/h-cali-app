@@ -2,7 +2,6 @@ import React from 'react';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import { lighten } from '@material-ui/core';
 import { routines } from 'data';
@@ -68,6 +67,7 @@ function WorkoutRoutineHomePage({ wid, selectedProgressions, setWorkout }) {
       </ToggleButtonGroup>
       {workouts.map((exercises, i) => (
         <RoutineTable
+          key={i}
           workouts={exercises}
           wid={i}
           isActive={i === wid}
@@ -77,7 +77,7 @@ function WorkoutRoutineHomePage({ wid, selectedProgressions, setWorkout }) {
       ))}
 
       <Button variant="contained" color="primary" size={'large'} fullWidth={true} onClick={goToWorkout}>
-        <Box width={1}>Start Workout</Box>
+        Start Workout
       </Button>
     </>
   );

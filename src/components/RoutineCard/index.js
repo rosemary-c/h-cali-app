@@ -29,7 +29,7 @@ export default function RoutineTable({ workouts: exercises, wid = 0, isActive, s
         <Table size="small" aria-label="a dense table">
           <TableBody>
             {exercises.map((eid) => (
-              <ProgressionRow eid={eid} selectedProgressions={selectedProgressions} />
+              <ProgressionRow key={eid} eid={eid} selectedProgressions={selectedProgressions} />
             ))}
           </TableBody>
         </Table>

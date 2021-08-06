@@ -21,12 +21,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavBar({ incrementWorkout, resetStorage }) {
+export default function NavBar({ resetStorage }) {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
   const [rid, setRoutineId] = React.useState("hamptons");
-  const [showFinish, setShowFinish] = React.useState(false);
+  const [hideReset, setHideReset] = React.useState(false);
   const [showExerciseName, setShowExercise] = React.useState(false);
   const eid = location.pathname.split("/").pop();
 
@@ -34,14 +34,9 @@ export default function NavBar({ incrementWorkout, resetStorage }) {
     const newRid = location.pathname.split("/")[2];
     setRoutineId(newRid);
 
-    setShowFinish(location.pathname.endsWith("/exercises"));
+    setHideReset(location.pathname.endsWith("/exercises"));
     setShowExercise(location.pathname.includes("/exercises/"));
   }, [location.pathname]);
-
-  const handleFinish = () => {
-    incrementWorkout();
-    history.push(location.pathname.replace(/\/workouts.*$/, "")); // go home
-  };
   
   const handleReset = () => {
     resetStorage();
@@ -75,11 +70,7 @@ export default function NavBar({ incrementWorkout, resetStorage }) {
             {showExerciseName ? eid.replace("_", " ") : "Hybrid Calisthenics"}
           </Typography>
         </Button>
-        {showFinish ? (
-          <Button color="inherit" onClick={handleFinish}>
-            Finish
-          </Button>
-        ) : (
+        {!hideReset && (
           <Button color="inherit" onClick={handleReset}>
             Reset
           </Button>

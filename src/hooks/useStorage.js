@@ -3,17 +3,21 @@ import { routines } from 'data';
 
 const initProgression = {};
 const initWid = -1;
+const initHistory = {};
+const storage = window.localStorage;
 
 export const useStorage = () => {
   const [selectedProgressions, setProgressions] = React.useState(initProgression);
   const [currentWorkoutId, setWorkout] = React.useState(initWid);
-  const storage = window.localStorage;
+  const [workoutHistory, setWorkoutHistory] = React.useState(initHistory);
 
   React.useEffect(() => {
     const progressionObj = JSON.parse(storage.getItem("progressions") || "{}");
     const wid = parseInt(storage.getItem("currentWorkoutId")) || 0;
+    const history = JSON.parse(storage.getItem("workoutHistory") || "{}");
     setProgressions(progressionObj);
     setWorkout(wid);
+    setWorkoutHistory(history);
   }, []);
 
   React.useEffect(() => {
@@ -28,6 +32,12 @@ export const useStorage = () => {
     }
   }, [currentWorkoutId]);
 
+  React.useEffect(() => {
+    if (workoutHistory !== initHistory) {
+      storage.setItem("workoutHistory", JSON.stringify(workoutHistory));
+    }
+  }, [workoutHistory]);
+
   const incrementWorkout = () => {
     const rid = window.location.pathname.split('/')[2];
     const numOfWorkouts = routines[rid].length;
@@ -37,6 +47,7 @@ export const useStorage = () => {
   const resetStorage = () => {
     setWorkout(0);
     setProgressions({});
+    setWorkoutHistory({});
   };
 
   return {
@@ -46,5 +57,7 @@ export const useStorage = () => {
     incrementWorkout,
     resetStorage,
     setWorkout,
+    workoutHistory,
+    setWorkoutHistory,
   };
 };
