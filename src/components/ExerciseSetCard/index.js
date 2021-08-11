@@ -1,5 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import TextField from "@material-ui/core/TextField";
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import Box from "@material-ui/core/Box";
@@ -32,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
   grid: {
     marginTop: theme.spacing(1),
   },
+  field: {
+    marginTop: theme.spacing(2),
+  },
 }));
 
 export default function ExerciseSetCard({ eid, selectedProgressions, workoutHistory, workoutLogState }) {
@@ -40,25 +44,28 @@ export default function ExerciseSetCard({ eid, selectedProgressions, workoutHist
   const pid = parseInt(selectedProgressions[eid]) || 0;
   const exercise = progressions[eid][pid];
   const [log, setLog] = workoutLogState;
+  const exerciseProgressionId = `${eid}_${pid}`; 
 
   const handleEditClick = () => history.push(`${window.location.pathname}/${eid}`);
   const getPreviousWorkout = () => {
-    const exerciseProgressionId = `${eid}_${pid}`;
     const exerciseLogs = workoutHistory[exerciseProgressionId] || [];
-    const lastLog = exerciseLogs.slice(-1)[0]; // { date: number, sets: number[] }
+    const lastLog = exerciseLogs.slice(-1)[0]; // { date: number, sets: number[], notes: string }
 
     if (!lastLog) return;
 
-    return `${new Date(lastLog.date).toLocaleString()}: [ ${lastLog.sets.join(" | ")} ]`;
+    return {
+      log: `${new Date(lastLog.date).toLocaleString()}: [ ${lastLog.sets.join(" | ")} ]`,
+      notes: lastLog.notes,
+    };
   };
-
   const handleClickRep = (rep, i) => {
-    const exerciseProgressionId = `${eid}_${pid}`;
     const exerciseLog = log[exerciseProgressionId] || [];
     exerciseLog[i] = rep;
 
     setLog({ ...log, [exerciseProgressionId]: exerciseLog });
   };
+
+  const exerciseLog = getPreviousWorkout();
 
   return (
     <Card className={classes.card}>
@@ -79,6 +86,7 @@ export default function ExerciseSetCard({ eid, selectedProgressions, workoutHist
               <EditIcon className={classes.edit} />
             </IconButton>
             <Typography align="left" component="p" color="textSecondary">
+              {/* trainer notes */}
               {exercise.note ?? ""}
             </Typography>
           </Box>
@@ -89,9 +97,10 @@ export default function ExerciseSetCard({ eid, selectedProgressions, workoutHist
           </Box>
         </Box>
 
-        {getPreviousWorkout() && (
+        {exerciseLog && (
           <Typography color="textSecondary" variant="caption">
-            <Box fontFamily="Monospace">{getPreviousWorkout()}</Box>
+            <Box fontFamily="Monospace">{exerciseLog.log}</Box>
+            <Box fontFamily="Monospace">Notes: {exerciseLog.notes}</Box>
           </Typography>
         )}
 
@@ -102,6 +111,15 @@ export default function ExerciseSetCard({ eid, selectedProgressions, workoutHist
             </Grid>
           ))}
         </Grid>
+        <TextField
+          id={`${exerciseProgressionId}_input`}
+          // hack: consumed by parent handleFinish via js querySelector
+          className={classes.field}
+          fullWidth
+          label="Notes"
+          size="small"
+          variant="outlined"
+        />
       </CardContent>
     </Card>
   );

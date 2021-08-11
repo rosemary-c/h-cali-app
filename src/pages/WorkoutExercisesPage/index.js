@@ -34,9 +34,12 @@ function WorkoutExercisesPage({
         newHistory[key] = [];
       }
 
+      const notes = document.getElementById(`${key}_input`)?.value ?? '';
+
       newHistory[key].push({
         date: Date.now(),
         sets: log[key],
+        notes,
       });
     }
 

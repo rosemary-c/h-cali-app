@@ -4,11 +4,12 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   btn: {
-    color: "lightgray",
-    width: "100%",
-    borderRadius: "4px",
-    border: "none",
     backgroundColor: "#EFEFEF",
+    border: "none",
+    borderRadius: "4px",
+    color: "lightgray",
+    height: "40px",
+    width: "100%",
   },
   active: {
     color: "white",
