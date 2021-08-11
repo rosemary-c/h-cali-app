@@ -42,7 +42,7 @@ function WorkoutRoutineHomePage({ wid, selectedProgressions, setWorkout }) {
   };
 
   return (
-    <>
+    <div>
       <ToggleButtonGroup
         className={classes.group}
         value={rid}
@@ -76,10 +76,16 @@ function WorkoutRoutineHomePage({ wid, selectedProgressions, setWorkout }) {
         />
       ))}
 
-      <Button variant="contained" color="primary" size={'large'} fullWidth={true} onClick={goToWorkout}>
+      <Button
+        variant="contained"
+        color="primary"
+        size={"large"}
+        fullWidth={true}
+        onClick={goToWorkout}
+      >
         Start Workout
       </Button>
-    </>
+    </div>
   );
 }
 

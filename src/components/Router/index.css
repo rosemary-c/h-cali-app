@@ -1,0 +1,14 @@
+.route-wrapper {
+  position: relative;
+}
+
+.route-wrapper > div {
+  background-color: whitesmoke;
+  position: absolute;
+  width: 100%;
+  height: calc(100vh - 56px);
+}
+
+.route-wrapper > div > div {
+  padding: 16px;
+}

@@ -30,7 +30,7 @@ export default function EditExerciseProgressionPage({ selectedProgressions, setP
   const className = (i) => `${classes.card} ${isActive(i) ? classes.active : ""}`;
 
   return (
-    <>
+    <div>
       <Typography variant="h5" gutterBottom>
         Edit exercise progression
       </Typography>
@@ -46,6 +46,6 @@ export default function EditExerciseProgressionPage({ selectedProgressions, setP
           </CardActionArea>
         </Card>
       ))}
-    </>
+    </div>
   );
 }
