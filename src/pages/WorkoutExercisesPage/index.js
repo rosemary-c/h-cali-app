@@ -10,6 +10,9 @@ import { useHistory } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   wrapper: {
     margin: `${theme.spacing(2)} ${theme.spacing(1)}`
+  },
+  finish: {
+    color: "white !important"
   }
 }));
 
@@ -49,6 +52,8 @@ function WorkoutExercisesPage({
     history.push(window.location.pathname.replace(/\/workouts.*$/, "")); // go home
   };
 
+  const isFinishDisabled = !Object.keys(log).length;
+
   return (
     <div className={classes.wrapper}>
       <Typography variant="h5" gutterBottom>
@@ -64,7 +69,8 @@ function WorkoutExercisesPage({
         />
       ))}
       <Button
-        disabled={!Object.keys(log).length}
+        className={isFinishDisabled ? '' : classes.finish}
+        disabled={isFinishDisabled}
         variant="contained"
         color="primary"
         size={"large"}
