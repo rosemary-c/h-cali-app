@@ -100,7 +100,7 @@ export default function ExerciseSetCard({ eid, selectedProgressions, workoutHist
         {exerciseLog && (
           <Typography color="textSecondary" variant="caption">
             <Box fontFamily="Monospace">{exerciseLog.log}</Box>
-            <Box fontFamily="Monospace">Notes: {exerciseLog.notes}</Box>
+            {exerciseLog.notes && <Box fontFamily="Monospace">Notes: {exerciseLog.notes}</Box>}
           </Typography>
         )}
 
