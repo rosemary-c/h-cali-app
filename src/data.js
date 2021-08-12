@@ -211,9 +211,9 @@ export const progressions = {
 			variation: '',
 		},
 		{
-			name: 'Half Squats',
-			setValue: 2,
-			repValue: 35,
+			name: 'Half Squats', // 2, 35 original
+			setValue: 3,
+			repValue: 25,
 			variation: '',
 		},
 		{
