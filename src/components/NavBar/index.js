@@ -35,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
   actions: {
     margin: theme.spacing(1),
     marginTop: 0
+  },
+  grid: {
+    maxWidth: '800px',
+    margin: 'auto',
   }
 }));
 
@@ -67,9 +71,9 @@ export default function NavBar({ resetStorage }) {
   };;
 
   return (
-    <AppBar position="static">
+    <AppBar position="relative">
       <Toolbar>
-        <Grid container>
+        <Grid container className={classes.grid}>
           <Grid item xs={2}>
             {showExerciseName ? (
               <IconButton

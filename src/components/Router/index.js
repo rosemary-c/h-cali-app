@@ -36,39 +36,41 @@ function Router() {
   });
 
   return (
-    <div>
+    <div className="wrapper">
       <NavBar resetStorage={resetStorage} />
-      <AnimatedSwitch
-        atEnter={{ offset: 100 }}
-        atLeave={{ offset: -100 }}
-        atActive={{ offset: 0 }}
-        mapStyles={mapStyles}
-        className="route-wrapper"
-      >
-        <Redirect exact from="/" to="/routines/hamptons" />
-        <Route exact path="/routines/:rid">
-          <WorkoutRoutineHomePage
-            wid={currentWorkoutId}
-            selectedProgressions={selectedProgressions}
-            setWorkout={setWorkout}
-          />
-        </Route>
-        <Route exact path="/routines/:rid/workouts/:wid/exercises">
-          <WorkoutExercisesPage
-            incrementWorkout={incrementWorkout}
-            selectedProgressions={selectedProgressions}
-            workoutHistory={workoutHistory}
-            setWorkoutHistory={setWorkoutHistory}
-          />
-        </Route>
-        <Route exact path="/routines/:rid/workouts/:wid/exercises/:eid">
-          <EditExerciseProgressionPage
-            selectedProgressions={selectedProgressions}
-            setProgressions={setProgressions}
-          />
-        </Route>
-        <Redirect to="/routines/hamptons" />
-      </AnimatedSwitch>
+      <div className="switch">
+        <AnimatedSwitch
+          atEnter={{ offset: 100 }}
+          atLeave={{ offset: -100 }}
+          atActive={{ offset: 0 }}
+          mapStyles={mapStyles}
+          className="route-wrapper"
+        >
+          <Redirect exact from="/" to="/routines/hamptons" />
+          <Route exact path="/routines/:rid">
+            <WorkoutRoutineHomePage
+              wid={currentWorkoutId}
+              selectedProgressions={selectedProgressions}
+              setWorkout={setWorkout}
+            />
+          </Route>
+          <Route exact path="/routines/:rid/workouts/:wid/exercises">
+            <WorkoutExercisesPage
+              incrementWorkout={incrementWorkout}
+              selectedProgressions={selectedProgressions}
+              workoutHistory={workoutHistory}
+              setWorkoutHistory={setWorkoutHistory}
+            />
+          </Route>
+          <Route exact path="/routines/:rid/workouts/:wid/exercises/:eid">
+            <EditExerciseProgressionPage
+              selectedProgressions={selectedProgressions}
+              setProgressions={setProgressions}
+            />
+          </Route>
+          <Redirect to="/routines/hamptons" />
+        </AnimatedSwitch>
+      </div>
     </div>
   );
 }
