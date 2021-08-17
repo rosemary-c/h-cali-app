@@ -29,7 +29,7 @@ function WorkoutRoutineHomePage({ wid, selectedProgressions, setWorkout }) {
 
   const workouts = routines[rid];
   const btnClass = (value) => `${classes.btn} ${rid === value ? classes.active : ""}`;
-  const goToWorkout = (i) => history.push(`${window.location.pathname}/workouts/${i}/exercises`);
+  const goToWorkout = () => history.push(`${window.location.pathname}/workouts/${wid}/exercises`);
   const handleCardClick = (i) => {
     setWorkout(i);
     setTimeout(() => goToWorkout(i), 100);
