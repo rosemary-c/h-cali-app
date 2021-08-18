@@ -73,6 +73,7 @@ function WorkoutRoutineHomePage({ wid, selectedProgressions, setWorkout }) {
           isActive={i === wid}
           selectedProgressions={selectedProgressions}
           onClick={() => handleCardClick(i)}
+          isCompact={rid !== 'hamptons'}
         />
       ))}
 

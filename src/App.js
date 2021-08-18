@@ -4,9 +4,18 @@ import Router from './components/Router';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#2886FC'
-    }
-  }
+      main: "#2886FC",
+    },
+  },
+  overrides: {
+    MuiTableRow: {
+      root: {
+        "&:last-child td": {
+          borderBottom: 0,
+        },
+      },
+    },
+  },
 });
 
 function App() {

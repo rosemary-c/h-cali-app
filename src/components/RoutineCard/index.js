@@ -17,13 +17,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RoutineTable({ workouts: exercises, wid = 0, isActive, selectedProgressions, onClick }) {
+export default function RoutineTable({ workouts: exercises, wid = 0, isActive, selectedProgressions, onClick, isCompact }) {
   const classes = useStyles({ isActive });
 
   return (
     <Card className={classes.card}>
       <CardActionArea className={classes.action} onClick={onClick}>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h5" gutterBottom={!isCompact}>
           {`Workout ${String.fromCharCode(65 + wid)}`}
         </Typography>
         <Table size="small" aria-label="a dense table">
