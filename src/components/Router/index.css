@@ -1,12 +1,13 @@
 .route-wrapper {
   position: relative;
+  margin: auto;
+  max-width: 800px;
 }
 
 .route-wrapper > div {
   background-color: whitesmoke;
   position: absolute;
   width: 100%;
-  height: calc(100vh - 64px);
 }
 
 .route-wrapper > div > div {
@@ -15,13 +16,6 @@
 
 .switch {
   width: 100%;
-  height: 100%;
-  margin: auto;
-  max-width: 800px;
-  overflow-x: hidden;
-}
-
-.wrapper {
-  width: 100vw;
   height: calc(100vh - 64px);
+  overflow-x: hidden;
 }

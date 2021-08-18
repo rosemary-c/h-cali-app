@@ -36,7 +36,7 @@ function Router() {
   });
 
   return (
-    <div className="wrapper">
+    <>
       <NavBar resetStorage={resetStorage} />
       <div className="switch">
         <AnimatedSwitch
@@ -71,7 +71,7 @@ function Router() {
           <Redirect to="/routines/hamptons" />
         </AnimatedSwitch>
       </div>
-    </div>
+    </>
   );
 }
 
