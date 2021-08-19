@@ -38,13 +38,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ExerciseSetCard({ eid, selectedProgressions, workoutHistory, workoutLogState }) {
+export default function ExerciseSetCard({
+  eid,
+  selectedProgressions,
+  workoutHistory,
+  workoutLogState,
+  debouncedShowTimer,
+}) {
   const history = useHistory();
   const classes = useStyles();
   const pid = parseInt(selectedProgressions[eid]) || 0;
   const exercise = progressions[eid][pid];
   const [log, setLog] = workoutLogState;
-  const exerciseProgressionId = `${eid}_${pid}`; 
+  const exerciseProgressionId = `${eid}_${pid}`;
 
   const handleEditClick = () => history.push(`${window.location.pathname}/${eid}`);
   const getPreviousWorkout = () => {
@@ -63,6 +69,7 @@ export default function ExerciseSetCard({ eid, selectedProgressions, workoutHist
     exerciseLog[i] = rep;
 
     setLog({ ...log, [exerciseProgressionId]: exerciseLog });
+    debouncedShowTimer();
   };
 
   const exerciseLog = getPreviousWorkout();

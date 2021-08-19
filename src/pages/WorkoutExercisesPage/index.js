@@ -5,7 +5,9 @@ import Typography from "@material-ui/core/Typography";
 import { routines } from 'data';
 import { useParams } from "react-router-dom";
 import ExerciseSetCard from 'components/ExerciseSetCard';
+import TimerModal from "components/TimerModal";
 import { useHistory } from "react-router-dom";
+import { debounce } from "lodash-es";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -28,7 +30,10 @@ function WorkoutExercisesPage({
   const wid = parseInt(widParams);
   const exercises = routines[rid][wid] || [];
   const workoutLogState = React.useState({});
+  const [showTimer, setShowTimer] = React.useState(false);
   const [log] = workoutLogState;
+
+  const debouncedShowTimer = React.useMemo(() => debounce(() => setShowTimer(true), 1000), []);
 
   const handleFinishWorkout = () => {
     const newHistory = { ...workoutHistory };
@@ -66,10 +71,11 @@ function WorkoutExercisesPage({
           selectedProgressions={selectedProgressions}
           workoutHistory={workoutHistory}
           workoutLogState={workoutLogState}
+          debouncedShowTimer={debouncedShowTimer}
         />
       ))}
       <Button
-        className={isFinishDisabled ? '' : classes.finish}
+        className={isFinishDisabled ? "" : classes.finish}
         disabled={isFinishDisabled}
         variant="contained"
         color="primary"
@@ -79,6 +85,7 @@ function WorkoutExercisesPage({
       >
         Finish Workout
       </Button>
+      {showTimer && <TimerModal onClose={() => setShowTimer(false)} />}
     </div>
   );
 }

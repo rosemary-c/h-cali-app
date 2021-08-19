@@ -2,6 +2,8 @@
   position: relative;
   margin: auto;
   max-width: 800px;
+  height: 100%;
+  overflow-x: hidden;
 }
 
 .route-wrapper > div {
@@ -17,5 +19,4 @@
 .switch {
   width: 100%;
   height: calc(100vh - 64px);
-  overflow-x: hidden;
 }
