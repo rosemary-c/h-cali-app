@@ -68,7 +68,7 @@ function WorkoutExercisesPage({
         <ExerciseSetCard
           key={eid}
           eid={eid}
-          selectedProgressions={selectedProgressions}
+          pid={parseInt(selectedProgressions[eid]) || 0}
           workoutHistory={workoutHistory}
           workoutLogState={workoutLogState}
           debouncedShowTimer={debouncedShowTimer}

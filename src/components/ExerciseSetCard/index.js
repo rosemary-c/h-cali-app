@@ -40,14 +40,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ExerciseSetCard({
   eid,
-  selectedProgressions,
+  pid,
   workoutHistory,
   workoutLogState,
   debouncedShowTimer,
 }) {
   const history = useHistory();
   const classes = useStyles();
-  const pid = parseInt(selectedProgressions[eid]) || 0;
   const exercise = progressions[eid][pid];
   const [log, setLog] = workoutLogState;
   const exerciseProgressionId = `${eid}_${pid}`;
