@@ -1,13 +1,15 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import IconButton from "@material-ui/core/IconButton";
+import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { routines } from 'data';
 import { useParams } from "react-router-dom";
 import ExerciseSetCard from 'components/ExerciseSetCard';
+import TimeIcon from "@material-ui/icons/AccessTime";
 import TimerModal from "components/TimerModal";
 import { useHistory } from "react-router-dom";
-import { debounce } from "lodash-es";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -32,8 +34,6 @@ function WorkoutExercisesPage({
   const workoutLogState = React.useState({});
   const [showTimer, setShowTimer] = React.useState(false);
   const [log] = workoutLogState;
-
-  const debouncedShowTimer = React.useMemo(() => debounce(() => setShowTimer(true), 1000), []);
 
   const handleFinishWorkout = () => {
     const newHistory = { ...workoutHistory };
@@ -61,9 +61,22 @@ function WorkoutExercisesPage({
 
   return (
     <div className={classes.wrapper}>
-      <Typography variant="h5" gutterBottom>
-        {`Workout ${String.fromCharCode(65 + wid)}`}
-      </Typography>
+      <Box display="flex" gutterBottom>
+        <Typography variant="h5">
+          {`Workout ${String.fromCharCode(65 + wid)}`}&nbsp;
+        </Typography>
+        <IconButton
+          aria-label="edit"
+          color="primary"
+          component="span"
+          size="small"
+          onClick={() => setShowTimer(true)}
+          className={classes.btn}
+        >
+          <TimeIcon className={classes.edit} />
+        </IconButton>
+      </Box>
+
       {exercises.map((eid) => (
         <ExerciseSetCard
           key={eid}
@@ -71,9 +84,9 @@ function WorkoutExercisesPage({
           pid={parseInt(selectedProgressions[eid]) || 0}
           workoutHistory={workoutHistory}
           workoutLogState={workoutLogState}
-          debouncedShowTimer={debouncedShowTimer}
         />
       ))}
+
       <Button
         className={isFinishDisabled ? "" : classes.finish}
         disabled={isFinishDisabled}

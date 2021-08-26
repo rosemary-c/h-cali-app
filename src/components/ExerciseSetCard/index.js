@@ -43,7 +43,6 @@ export default function ExerciseSetCard({
   pid,
   workoutHistory,
   workoutLogState,
-  debouncedShowTimer,
 }) {
   const history = useHistory();
   const classes = useStyles();
@@ -68,7 +67,6 @@ export default function ExerciseSetCard({
     exerciseLog[i] = rep;
 
     setLog({ ...log, [exerciseProgressionId]: exerciseLog });
-    debouncedShowTimer();
   };
 
   const exerciseLog = getPreviousWorkout();
