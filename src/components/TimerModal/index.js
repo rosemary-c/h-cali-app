@@ -40,7 +40,13 @@ export default function TimerModal({ onClose }) {
   }, [seconds]);
 
   return (
-    <Modal open={true} onClose={onClose} className={classes.modal}>
+    <Modal
+      open={true}
+      onClose={onClose}
+      className={classes.modal}
+      disableAutoFocus={true}
+      disableEnforceFocus={true}
+    >
       <div className={classes.shapeCircle}>
         <Typography align="center" variant="h1" className={classes.text}>
           {new Date(1000 * seconds).toISOString().substr(14, 5)}
