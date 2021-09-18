@@ -61,7 +61,7 @@ function WorkoutExercisesPage({
 
   return (
     <div className={classes.wrapper}>
-      <Box display="flex" gutterBottom>
+      <Box display="flex">
         <Typography variant="h5">
           {`Workout ${String.fromCharCode(65 + wid)}`}&nbsp;
         </Typography>
