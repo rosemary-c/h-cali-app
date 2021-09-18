@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     border: "none",
     borderRadius: "4px",
     color: "lightgray",
+    touchAction: "manipulation",
     height: "40px",
     width: "100%",
   },
