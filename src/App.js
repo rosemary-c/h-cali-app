@@ -1,5 +1,7 @@
 import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import React from 'react';
 import Router from './components/Router';
+import { initializeHeap } from "./utils/heap";
 
 const theme = createTheme({
   palette: {
@@ -19,6 +21,10 @@ const theme = createTheme({
 });
 
 function App() {
+  React.useEffect(() => {
+    initializeHeap();
+  }, []);
+  
   return (
     <MuiThemeProvider theme={theme}>
       <Router />
