@@ -1,3 +1,4 @@
+import { makeStyles } from '@material-ui/core/styles';
 import WorkoutRoutineHomePage from 'pages/Home';
 import WorkoutExercisesPage from 'pages/WorkoutExercisesPage';
 import EditExerciseProgressionPage from 'pages/EditProgressionPage';
@@ -8,7 +9,22 @@ import { useLocation, Route, Redirect } from "react-router-dom";
 import { AnimatedSwitch } from "react-router-transition";
 import "./index.css";
 
+const DISCORD_SERVER = "https://discord.gg/mDK27YHF3g";
+
+const useStyles = makeStyles((theme) => ({
+  contact: {
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+    color: "lightgrey",
+    position: "absolute",
+  },
+  discord: {
+    color: "lightgrey",
+  },
+}));
+
 function Router() {
+  const classes = useStyles();
   const {
     currentWorkoutId,
     incrementWorkout,
@@ -70,6 +86,17 @@ function Router() {
           </Route>
           <Redirect to="/routines/hamptons" />
         </AnimatedSwitch>
+        <div className={classes.contact}>
+          Chat with me on discord:&nbsp;
+          <a
+            className={classes.discord}
+            href={DISCORD_SERVER}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {DISCORD_SERVER}
+          </a>
+        </div>
       </div>
     </>
   );
