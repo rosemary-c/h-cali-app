@@ -99,7 +99,7 @@ export default function NavBar({ resetStorage }) {
           <Grid item xs={8} align="center">
             <Button className={classes.title} onClick={() => history.push(`/routines/${rid}`)}>
               <Typography variant="h6" className={classes.appName}>
-                {showExerciseName ? eid.replace("_", " ") : "Hybrid Calisthenics"}
+                {showExerciseName ? eid.replace("_", " ") : "H. Calisthenics"}
               </Typography>
             </Button>
           </Grid>

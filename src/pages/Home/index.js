@@ -48,7 +48,7 @@ function WorkoutRoutineHomePage({ wid, selectedProgressions, setWorkout }) {
         value={rid}
         exclusive={true}
         onChange={(_, value) => handleRoutineToggle(value)}
-        aria-label="Hybrid Calisthenics Routines"
+        aria-label="H. Calisthenics Routines"
       >
         <ToggleButton
           className={btnClass("hamptons")}
