@@ -11,13 +11,22 @@ import TimeIcon from "@material-ui/icons/AccessTime";
 import TimerModal from "components/TimerModal";
 import { useHistory } from "react-router-dom";
 
+const DISCORD_SERVER = "https://discord.gg/mDK27YHF3g";
+
 const useStyles = makeStyles((theme) => ({
   wrapper: {
-    margin: `${theme.spacing(2)} ${theme.spacing(1)}`
+    margin: `${theme.spacing(2)} ${theme.spacing(1)}`,
   },
   finish: {
-    color: "white !important"
-  }
+    color: "white !important",
+  },
+  contact: {
+    color: "lightgrey",
+    margin: theme.spacing(1),
+  },
+  discord: {
+    color: "lightgrey",
+  },
 }));
 
 function WorkoutExercisesPage({
@@ -62,9 +71,7 @@ function WorkoutExercisesPage({
   return (
     <div className={classes.wrapper}>
       <Box display="flex">
-        <Typography variant="h5">
-          {`Workout ${String.fromCharCode(65 + wid)}`}&nbsp;
-        </Typography>
+        <Typography variant="h5">{`Workout ${String.fromCharCode(65 + wid)} `}</Typography>
         <IconButton
           aria-label="edit"
           color="primary"
@@ -98,6 +105,17 @@ function WorkoutExercisesPage({
       >
         Finish Workout
       </Button>
+      <div className={classes.contact}>
+        Chat with me on discord:{' '}
+        <a
+          className={classes.discord}
+          href={DISCORD_SERVER}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {DISCORD_SERVER}
+        </a>
+      </div>
       {showTimer && <TimerModal onClose={() => setShowTimer(false)} />}
     </div>
   );
