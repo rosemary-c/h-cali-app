@@ -38,6 +38,9 @@ function WorkoutRoutineHomePage({ wid, selectedProgressions, setWorkout }) {
     if (!value) return;
 
     setWorkout(0);
+    
+    // TODO useStorage context
+    window.localStorage.setItem('routineType', value);
     history.push(`/routines/${value}`);
   };
 

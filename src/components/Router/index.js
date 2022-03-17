@@ -35,6 +35,9 @@ function Router() {
     transform: `translateX(${styles.offset * animateDirection}%)`,
   });
 
+  // TODO: useStorage context
+  const redirectRoutineType = window.localStorage.getItem('routineType') || 'hamptons';
+
   return (
     <>
       <NavBar resetStorage={resetStorage} />
@@ -46,7 +49,7 @@ function Router() {
           mapStyles={mapStyles}
           className="route-wrapper"
         >
-          <Redirect exact from="/" to="/routines/hamptons" />
+          <Redirect exact from="/" to={`/routines/${redirectRoutineType}`} />
           <Route exact path="/routines/:rid">
             <WorkoutRoutineHomePage
               wid={currentWorkoutId}
