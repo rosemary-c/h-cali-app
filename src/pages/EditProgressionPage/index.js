@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { progressions } from 'data';
 import { getExerciseVariation, getSetRepStr } from 'utils/helper';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -22,10 +23,15 @@ const useStyles = makeStyles((theme) => ({
 export default function EditExerciseProgressionPage({ selectedProgressions, setProgressions }) {
   const { eid } = useParams();
   const classes = useStyles();
+  const history = useHistory();
   const exercises = progressions[eid];
   const pid = parseInt(selectedProgressions[eid]) || 0;
 
-  const handleClick = (idx) => setProgressions({ ...selectedProgressions, [eid]: idx });
+  const handleClick = (idx) => {
+    setProgressions({ ...selectedProgressions, [eid]: idx });
+    document.getElementsByClassName("route-wrapper")[0].scrollTo(0, 0);
+    history.push(window.location.pathname.replace(`/${eid}`, ""));
+  };
   const isActive = (i) => i === pid;
   const className = (i) => `${classes.card} ${isActive(i) ? classes.active : ""}`;
 
