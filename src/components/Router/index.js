@@ -61,6 +61,7 @@ function Router() {
             <WorkoutExercisesPage
               incrementWorkout={incrementWorkout}
               selectedProgressions={selectedProgressions}
+              setProgressions={setProgressions}
               workoutHistory={workoutHistory}
               setWorkoutHistory={setWorkoutHistory}
             />

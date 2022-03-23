@@ -10,6 +10,7 @@ import ExerciseSetCard from 'components/ExerciseSetCard';
 import TimeIcon from "@material-ui/icons/AccessTime";
 import TimerModal from "components/TimerModal";
 import { useHistory } from "react-router-dom";
+import { progressions } from 'data';
 
 const DISCORD_SERVER = "https://discord.gg/mDK27YHF3g";
 
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 function WorkoutExercisesPage({
   selectedProgressions,
+  setProgressions,
   workoutHistory,
   setWorkoutHistory,
   incrementWorkout,
@@ -48,17 +50,33 @@ function WorkoutExercisesPage({
     const newHistory = { ...workoutHistory };
 
     for (const key in log) {
+      // push current workout to history
       if (!newHistory[key]) {
         newHistory[key] = [];
       }
 
-      const notes = document.getElementById(`${key}_input`)?.value ?? '';
-
+      const notes = document.getElementById(`${key}_input`)?.value ?? "";
       newHistory[key].push({
         date: Date.now(),
         sets: log[key],
         notes,
       });
+
+      const [eid, pidStr] = key.split('-');
+      const exercise = progressions[eid][pidStr];
+      const pid = parseInt(pidStr);
+      
+      // workout complete, move to next progression if possible
+      if (
+        log[key].length === exercise.setValue &&
+        log[key].every((repCount) => repCount === exercise.repValue) &&
+        pid + 1 <= progressions[eid].length
+      ) {
+        setProgressions({
+          ...selectedProgressions,
+          [eid]: pid + 1,
+        })
+      }
     }
 
     setWorkoutHistory(newHistory);
@@ -106,7 +124,7 @@ function WorkoutExercisesPage({
         Finish Workout
       </Button>
       <div className={classes.contact}>
-        Chat with me on discord:{' '}
+        Chat with me on discord:{" "}
         <a
           className={classes.discord}
           href={DISCORD_SERVER}

@@ -48,11 +48,13 @@ export default function ExerciseSetCard({
   const classes = useStyles();
   const exercise = progressions[eid][pid];
   const [log, setLog] = workoutLogState;
-  const exerciseProgressionId = `${eid}_${pid}`;
+  const exerciseProgressionId = `${eid}-${pid}`;
+  const exerciseProgressionId_OLD = `${eid}_${pid}`; // TODO: deprecated, to be deleted
 
   const handleEditClick = () => history.push(`${window.location.pathname}/${eid}`);
   const getPreviousWorkout = () => {
-    const exerciseLogs = workoutHistory[exerciseProgressionId] || [];
+    const exerciseLogs =
+      workoutHistory[exerciseProgressionId] || workoutHistory[exerciseProgressionId_OLD] || [];
     const lastLog = exerciseLogs.slice(-1)[0]; // { date: number, sets: number[], notes: string }
 
     if (!lastLog) return;
@@ -63,7 +65,7 @@ export default function ExerciseSetCard({
     };
   };
   const handleClickRep = (rep, i) => {
-    const exerciseLog = log[exerciseProgressionId] || [];
+    const exerciseLog = log[exerciseProgressionId] || log[exerciseProgressionId_OLD] || [];
     exerciseLog[i] = rep;
 
     setLog({ ...log, [exerciseProgressionId]: exerciseLog });
