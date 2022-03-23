@@ -57,11 +57,11 @@ export default function ExerciseSetCard({
       workoutHistory[exerciseProgressionId] || workoutHistory[exerciseProgressionId_OLD] || [];
     const lastLog = exerciseLogs.slice(-1)[0]; // { date: number, sets: number[], notes: string }
 
-    if (!lastLog) return;
-
-    return {
+    return lastLog ? {
       log: `${new Date(lastLog.date).toLocaleString()}: [ ${lastLog.sets.join(" | ")} ]`,
       notes: lastLog.notes,
+    } : {
+      log: 'New Progression!'
     };
   };
   const handleClickRep = (rep, i) => {
