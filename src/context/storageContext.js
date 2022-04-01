@@ -1,12 +1,16 @@
-import React from 'react';
-import { routines } from 'data';
+import React, { createContext } from "react";
+import { routines } from "data";
 
 const initProgression = {};
 const initWid = -1;
 const initHistory = {};
 const storage = window.localStorage;
 
-export const useStorage = () => {
+const initialState = {};
+const LocalStorageContext = createContext(initialState);
+LocalStorageContext.displayName = "LocalStorageContext";
+
+export const LocalStorageProvider = ({ children }) => {
   const [selectedProgressions, setProgressions] = React.useState(initProgression);
   const [currentWorkoutId, setWorkout] = React.useState(initWid);
   const [workoutHistory, setWorkoutHistory] = React.useState(initHistory);
@@ -39,7 +43,7 @@ export const useStorage = () => {
   }, [workoutHistory]);
 
   const incrementWorkout = () => {
-    const rid = window.location.pathname.split('/')[2];
+    const rid = window.location.pathname.split("/")[2];
     const numOfWorkouts = routines[rid].length;
     setWorkout((currentWorkoutId + 1) % numOfWorkouts);
   };
@@ -50,7 +54,7 @@ export const useStorage = () => {
     setWorkoutHistory({});
   };
 
-  return {
+  const contextValue = {
     selectedProgressions,
     setProgressions,
     currentWorkoutId,
@@ -60,4 +64,10 @@ export const useStorage = () => {
     workoutHistory,
     setWorkoutHistory,
   };
+
+  return (
+    <LocalStorageContext.Provider value={contextValue}>{children}</LocalStorageContext.Provider>
+  );
 };
+
+export default LocalStorageContext;

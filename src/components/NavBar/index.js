@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Modal from "@material-ui/core/Modal";
@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useHistory, useLocation } from 'react-router-dom';
+import LocalStorageContext from "context/storageContext";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
@@ -42,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function NavBar({ resetStorage }) {
+export default function NavBar() {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
@@ -51,6 +52,8 @@ export default function NavBar({ resetStorage }) {
   const [showExerciseName, setShowExercise] = React.useState(false);
   const [showModal, setModal] = React.useState(false);
   const eid = location.pathname.split("/").pop();
+
+  const { resetStorage } = useContext(LocalStorageContext);
 
   React.useEffect(() => {
     const newRid = location.pathname.split("/")[2];

@@ -3,22 +3,11 @@ import WorkoutExercisesPage from 'pages/WorkoutExercisesPage';
 import EditExerciseProgressionPage from 'pages/EditProgressionPage';
 import NavBar from 'components/NavBar';
 import React from 'react';
-import { useStorage } from "hooks/useStorage";
 import { useLocation, Route, Redirect } from "react-router-dom";
 import { AnimatedSwitch } from "react-router-transition";
 import "./index.css";
 
 function Router() {
-  const {
-    currentWorkoutId,
-    incrementWorkout,
-    resetStorage,
-    selectedProgressions,
-    setProgressions,
-    setWorkout,
-    workoutHistory,
-    setWorkoutHistory,
-  } = useStorage();
   const location = useLocation();
 
   const [pathUrl, setPathUrl] = React.useState(location.pathname);
@@ -40,7 +29,7 @@ function Router() {
 
   return (
     <>
-      <NavBar resetStorage={resetStorage} />
+      <NavBar />
       <div className="switch">
         <AnimatedSwitch
           atEnter={{ offset: 100 }}
@@ -51,26 +40,13 @@ function Router() {
         >
           <Redirect exact from="/" to={`/routines/${redirectRoutineType}`} />
           <Route exact path="/routines/:rid">
-            <WorkoutRoutineHomePage
-              wid={currentWorkoutId}
-              selectedProgressions={selectedProgressions}
-              setWorkout={setWorkout}
-            />
+            <WorkoutRoutineHomePage  />
           </Route>
           <Route exact path="/routines/:rid/workouts/:wid/exercises">
-            <WorkoutExercisesPage
-              incrementWorkout={incrementWorkout}
-              selectedProgressions={selectedProgressions}
-              setProgressions={setProgressions}
-              workoutHistory={workoutHistory}
-              setWorkoutHistory={setWorkoutHistory}
-            />
+            <WorkoutExercisesPage />
           </Route>
           <Route exact path="/routines/:rid/workouts/:wid/exercises/:eid">
-            <EditExerciseProgressionPage
-              selectedProgressions={selectedProgressions}
-              setProgressions={setProgressions}
-            />
+            <EditExerciseProgressionPage />
           </Route>
           <Redirect to="/routines/hamptons" />
         </AnimatedSwitch>

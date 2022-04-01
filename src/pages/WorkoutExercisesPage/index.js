@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import IconButton from "@material-ui/core/IconButton";
@@ -11,6 +11,7 @@ import TimeIcon from "@material-ui/icons/AccessTime";
 import TimerModal from "components/TimerModal";
 import { useHistory } from "react-router-dom";
 import { progressions } from 'data';
+import LocalStorageContext from "context/storageContext";
 
 const DISCORD_SERVER = "https://discord.gg/mDK27YHF3g";
 
@@ -30,15 +31,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function WorkoutExercisesPage({
-  selectedProgressions,
-  setProgressions,
-  workoutHistory,
-  setWorkoutHistory,
-  incrementWorkout,
-}) {
+function WorkoutExercisesPage() {
   const classes = useStyles();
   const { rid = "hamptons", wid: widParams = 0 } = useParams();
+  const {
+    selectedProgressions,
+    setProgressions,
+    workoutHistory,
+    setWorkoutHistory,
+    incrementWorkout,
+  } = useContext(LocalStorageContext);
   const history = useHistory();
   const wid = parseInt(widParams);
   const exercises = routines[rid][wid] || [];

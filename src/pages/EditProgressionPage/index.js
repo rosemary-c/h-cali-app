@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -7,6 +7,7 @@ import { progressions } from 'data';
 import { getExerciseVariation, getSetRepStr } from 'utils/helper';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
+import LocalStorageContext from "context/storageContext";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -20,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EditExerciseProgressionPage({ selectedProgressions, setProgressions }) {
+export default function EditExerciseProgressionPage() {
+  const { selectedProgressions, setProgressions } = useContext(LocalStorageContext);
   const { eid } = useParams();
   const classes = useStyles();
   const history = useHistory();
@@ -41,7 +43,7 @@ export default function EditExerciseProgressionPage({ selectedProgressions, setP
         Edit exercise progression
       </Typography>
       {exercises.map((ex, i) => (
-        <Card className={className(i)}>
+        <Card key={i} className={className(i)}>
           <CardActionArea className={classes.action} onClick={() => handleClick(i)}>
             <Typography variant="h6" component="p">
               {getExerciseVariation(ex)}
