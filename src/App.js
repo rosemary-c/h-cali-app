@@ -2,7 +2,7 @@ import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import Router from './components/Router';
 import { initializeHeap } from "./utils/heap";
-import { LocalStorageProvider } from "context/storageContext";
+import { AppContextProvider } from "context/appContext";
 
 const theme = createTheme({
   palette: {
@@ -28,9 +28,9 @@ function App() {
   
   return (
     <MuiThemeProvider theme={theme}>
-      <LocalStorageProvider>
+      <AppContextProvider>
         <Router />
-      </LocalStorageProvider>
+      </AppContextProvider>
     </MuiThemeProvider>
   );
 }

@@ -1,5 +1,6 @@
 import React, { createContext } from "react";
 import { routines } from "data";
+import { useLocation } from "react-router-dom";
 
 const initProgression = {};
 const initWid = -1;
@@ -7,13 +8,15 @@ const initHistory = {};
 const storage = window.localStorage;
 
 const initialState = {};
-const LocalStorageContext = createContext(initialState);
-LocalStorageContext.displayName = "LocalStorageContext";
+const AppContext = createContext(initialState);
+AppContext.displayName = "AppContext";
 
-export const LocalStorageProvider = ({ children }) => {
+export const AppContextProvider = ({ children }) => {
   const [selectedProgressions, setProgressions] = React.useState(initProgression);
   const [currentWorkoutId, setWorkout] = React.useState(initWid);
   const [workoutHistory, setWorkoutHistory] = React.useState(initHistory);
+  const [routineId, setRoutineId] = React.useState("hamptons");
+  const location = useLocation();
 
   React.useEffect(() => {
     const progressionObj = JSON.parse(storage.getItem("progressions") || "{}");
@@ -42,6 +45,11 @@ export const LocalStorageProvider = ({ children }) => {
     }
   }, [workoutHistory]);
 
+  React.useEffect(() => {
+    const newRid = location.pathname.split("/")[2];
+    setRoutineId(newRid);
+  }, [location.pathname]);
+
   const incrementWorkout = () => {
     const rid = window.location.pathname.split("/")[2];
     const numOfWorkouts = routines[rid].length;
@@ -63,11 +71,13 @@ export const LocalStorageProvider = ({ children }) => {
     setWorkout,
     workoutHistory,
     setWorkoutHistory,
+    routineId,
+    setRoutineId,
   };
 
   return (
-    <LocalStorageContext.Provider value={contextValue}>{children}</LocalStorageContext.Provider>
+    <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
   );
 };
 
-export default LocalStorageContext;
+export default AppContext;

@@ -7,7 +7,7 @@ import { progressions } from 'data';
 import { getExerciseVariation, getSetRepStr } from 'utils/helper';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
-import LocalStorageContext from "context/storageContext";
+import AppContext from "context/appContext";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EditExerciseProgressionPage() {
-  const { selectedProgressions, setProgressions } = useContext(LocalStorageContext);
+  const { selectedProgressions, setProgressions } = useContext(AppContext);
   const { eid } = useParams();
   const classes = useStyles();
   const history = useHistory();

@@ -11,7 +11,7 @@ import TimeIcon from "@material-ui/icons/AccessTime";
 import TimerModal from "components/TimerModal";
 import { useHistory } from "react-router-dom";
 import { progressions } from 'data';
-import LocalStorageContext from "context/storageContext";
+import AppContext from "context/appContext";
 
 const DISCORD_SERVER = "https://discord.gg/mDK27YHF3g";
 
@@ -40,7 +40,7 @@ function WorkoutExercisesPage() {
     workoutHistory,
     setWorkoutHistory,
     incrementWorkout,
-  } = useContext(LocalStorageContext);
+  } = useContext(AppContext);
   const history = useHistory();
   const wid = parseInt(widParams);
   const exercises = routines[rid][wid] || [];

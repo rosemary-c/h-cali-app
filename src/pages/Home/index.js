@@ -7,7 +7,7 @@ import { lighten } from '@material-ui/core';
 import { routines } from 'data';
 import RoutineTable from 'components/RoutineCard';
 import { useHistory, useParams } from "react-router-dom";
-import LocalStorageContext from "context/storageContext";
+import AppContext from "context/appContext";
 
 const useStyles = makeStyles((theme) => ({
   group: {
@@ -27,7 +27,7 @@ function WorkoutRoutineHomePage() {
   const classes = useStyles();
   const history = useHistory();
   const { rid = "hamptons" } = useParams();
-  const { currentWorkoutId: wid, selectedProgressions, setWorkout } = useContext(LocalStorageContext);
+  const { currentWorkoutId: wid, selectedProgressions, setWorkout, setRoutineId } = useContext(AppContext);
 
   const workouts = routines[rid];
   const btnClass = (value) => `${classes.btn} ${rid === value ? classes.active : ""}`;
@@ -40,9 +40,7 @@ function WorkoutRoutineHomePage() {
     if (!value) return;
 
     setWorkout(0);
-    
-    // TODO useStorage context
-    window.localStorage.setItem('routineType', value);
+    setRoutineId(value);
     history.push(`/routines/${value}`);
   };
 
