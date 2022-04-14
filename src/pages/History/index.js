@@ -6,8 +6,8 @@ import CardContent from "@material-ui/core/CardContent";
 import AppContext from "context/appContext";
 import { progressions } from "data";
 
-const PROGRESSION_ID_REGEX = /(\d)*$/;
-const EXERCISE_NAME_REGEX = /^[a-z]*(_[a-z]*)?/;
+const PROGRESSION_ID_REGEX = /(\d)+$/;
+const EXERCISE_NAME_REGEX = /^[a-z]+(_[a-z]+)?/;
 
 const getProgressionName = (eid, pid) => {
   try {
