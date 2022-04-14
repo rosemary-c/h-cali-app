@@ -19,7 +19,7 @@ const getProgressionName = (eid, pid) => {
 
 export default function WorkoutHistoryPage() {
   const { workoutHistory } = useContext(AppContext);
-  const workoutNameKeys = Object.keys(workoutHistory);
+  const workoutNameKeys = Object.keys(workoutHistory).sort();
 
   return (
     <div>
@@ -34,7 +34,7 @@ export default function WorkoutHistoryPage() {
           <Box sx={{ marginTop: 16 }} key={key}>
             <Card>
               <CardContent>
-                <Typography component='p' style={{ whiteSpace: 'pre' }}>
+                <Typography component='p' variant='h6' style={{ whiteSpace: 'pre' }}>
                   {getProgressionName(eid, pid)}
                 </Typography>
                 {logData.map((log) => {
@@ -46,7 +46,7 @@ export default function WorkoutHistoryPage() {
                       </Typography>
                       <Box sx={{ paddingLeft: 16 }}>
                         <Typography color='textSecondary' component='p'>
-                          {`Sets - ${JSON.stringify(log.sets)}`}
+                          {`Sets - ${JSON.stringify(log.sets).replaceAll(',', ' | ')}`}
                         </Typography>
                         <Typography color='textSecondary' component='p'>
                           {`Notes - ${log.notes}`}
