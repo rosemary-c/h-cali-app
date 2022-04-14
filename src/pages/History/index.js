@@ -6,6 +6,9 @@ import CardContent from "@material-ui/core/CardContent";
 import AppContext from "context/appContext";
 import { progressions } from "data";
 
+const PROGRESSION_ID_REGEX = /(\d)*$/;
+const EXERCISE_NAME_REGEX = /^[a-z]*(_[a-z]*)?/;
+
 export default function WorkoutHistoryPage() {
   const { workoutHistory } = useContext(AppContext);
   const workoutNameKeys = Object.keys(workoutHistory);
@@ -16,7 +19,8 @@ export default function WorkoutHistoryPage() {
         Workout History
       </Typography>
       {workoutNameKeys.map((key) => {
-        const [eid, pid] = key.split("-");
+        const eid = key.match(EXERCISE_NAME_REGEX)[0];
+        const pid = key.match(PROGRESSION_ID_REGEX)[0];
         const logData = workoutHistory[key];
         const progressionName = progressions[eid][pid].name;
         return (
@@ -27,16 +31,17 @@ export default function WorkoutHistoryPage() {
                   {progressionName}
                 </Typography>
                 {logData.map((log) => {
+                  const date = new Date(log.date);
                   return (
                     <Box sx={{ p: 1 }} key={log.date}>
-                      <Typography color="textSecondary" component="p">
-                        {new Date(log.date).toLocaleString()}
+                      <Typography color='textSecondary' component='p'>
+                        {date.toDateString().replace(/^\w*\s/, '')}
                       </Typography>
                       <Box sx={{ paddingLeft: 16 }}>
-                        <Typography color="textSecondary" component="p">
+                        <Typography color='textSecondary' component='p'>
                           {`Sets - ${JSON.stringify(log.sets)}`}
                         </Typography>
-                        <Typography color="textSecondary" component="p">
+                        <Typography color='textSecondary' component='p'>
                           {`Notes - ${log.notes}`}
                         </Typography>
                       </Box>
