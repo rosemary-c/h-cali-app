@@ -37,17 +37,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TimerModal({ onClose }) {
   const classes = useStyles();
-  const [seconds, setTime] = React.useState(0);
+  const startTime = React.useRef(Date.now());
+  const [milliSeconds, setTime] = React.useState(0);
 
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setTime((seconds) => seconds + 1);
+      setTime(Date.now() - startTime.current);
     }, 1000);
 
     return () => {
       clearInterval(interval);
     };
-  }, [seconds]);
+  }, [milliSeconds]);
 
   return (
     <Modal
@@ -58,12 +59,12 @@ export default function TimerModal({ onClose }) {
       disableEnforceFocus={true}
     >
       <div className={classes.body}>
-        <IconButton className={classes.btn} aria-label="delete" onClick={onClose} color="lightgray">
-          <CloseIcon fontSize="large" />
+        <IconButton className={classes.btn} aria-label='delete' onClick={onClose} color='lightgray'>
+          <CloseIcon fontSize='large' />
         </IconButton>
         <div className={classes.shapeCircle}>
-          <Typography align="center" variant="h1" className={classes.text}>
-            {new Date(1000 * seconds).toISOString().substr(14, 5)}
+          <Typography align='center' variant='h1' className={classes.text}>
+            {new Date(milliSeconds).toISOString().substr(14, 5)}
           </Typography>
         </div>
       </div>
