@@ -9,6 +9,14 @@ import { progressions } from "data";
 const PROGRESSION_ID_REGEX = /(\d)*$/;
 const EXERCISE_NAME_REGEX = /^[a-z]*(_[a-z]*)?/;
 
+const getProgressionName = (eid, pid) => {
+  try {
+    return progressions[eid][pid].name;
+  } catch {
+    return `${eid} ${pid}`;
+  }
+};
+
 export default function WorkoutHistoryPage() {
   const { workoutHistory } = useContext(AppContext);
   const workoutNameKeys = Object.keys(workoutHistory);
@@ -22,13 +30,12 @@ export default function WorkoutHistoryPage() {
         const eid = key.match(EXERCISE_NAME_REGEX)[0];
         const pid = key.match(PROGRESSION_ID_REGEX)[0];
         const logData = workoutHistory[key];
-        const progressionName = progressions[eid][pid].name;
         return (
           <Box sx={{ marginTop: 16 }} key={key}>
             <Card>
               <CardContent>
-                <Typography component="p" style={{ whiteSpace: "pre" }}>
-                  {progressionName}
+                <Typography component='p' style={{ whiteSpace: 'pre' }}>
+                  {getProgressionName(eid, pid)}
                 </Typography>
                 {logData.map((log) => {
                   const date = new Date(log.date);
