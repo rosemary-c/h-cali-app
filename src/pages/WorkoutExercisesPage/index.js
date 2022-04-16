@@ -1,13 +1,12 @@
 import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import IconButton from "@material-ui/core/IconButton";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { routines } from 'data';
 import { useParams } from "react-router-dom";
 import ExerciseSetCard from 'components/ExerciseSetCard';
-import TimeIcon from "@material-ui/icons/AccessTime";
+import TimeIcon from '@material-ui/icons/AccessTime';
 import TimerModal from "components/TimerModal";
 import { useHistory } from "react-router-dom";
 import { progressions } from 'data';
@@ -20,14 +19,17 @@ const useStyles = makeStyles((theme) => ({
     margin: `${theme.spacing(2)} ${theme.spacing(1)}`,
   },
   finish: {
-    color: "white !important",
+    color: 'white !important',
   },
   contact: {
-    color: "lightgrey",
+    color: 'lightgrey',
     margin: theme.spacing(1),
   },
   discord: {
-    color: "lightgrey",
+    color: 'lightgrey',
+  },
+  stopwatchBtn: {
+    marginLeft: 'auto',
   },
 }));
 
@@ -90,18 +92,17 @@ function WorkoutExercisesPage() {
 
   return (
     <div className={classes.wrapper}>
-      <Box display="flex">
-        <Typography variant="h5">{`Workout ${String.fromCharCode(65 + wid)} `}</Typography>
-        <IconButton
-          aria-label="edit"
-          color="primary"
-          component="span"
-          size="small"
+      <Box display='flex'>
+        <Typography variant='h5'>{`Workout ${String.fromCharCode(65 + wid)} `}</Typography>
+        <Button
+          aria-label='stopwatch'
+          color='primary'
           onClick={() => setShowTimer(true)}
-          className={classes.btn}
+          className={classes.stopwatchBtn}
+          endIcon={<TimeIcon />}
         >
-          <TimeIcon className={classes.edit} />
-        </IconButton>
+          Show Time
+        </Button>
       </Box>
 
       {exercises.map((eid) => (
@@ -115,23 +116,23 @@ function WorkoutExercisesPage() {
       ))}
 
       <Button
-        className={isFinishDisabled ? "" : classes.finish}
+        className={isFinishDisabled ? '' : classes.finish}
         disabled={isFinishDisabled}
-        variant="contained"
-        color="primary"
-        size={"large"}
+        variant='contained'
+        color='primary'
+        size={'large'}
         fullWidth={true}
         onClick={handleFinishWorkout}
       >
         Finish Workout
       </Button>
       <div className={classes.contact}>
-        Chat with me on discord:{" "}
+        Got suggestions? Chat with me on discord:{' '}
         <a
           className={classes.discord}
           href={DISCORD_SERVER}
-          target="_blank"
-          rel="noopener noreferrer"
+          target='_blank'
+          rel='noopener noreferrer'
         >
           {DISCORD_SERVER}
         </a>
