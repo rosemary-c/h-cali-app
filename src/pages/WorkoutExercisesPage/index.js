@@ -42,7 +42,9 @@ function WorkoutExercisesPage() {
     workoutHistory,
     setWorkoutHistory,
     incrementWorkout,
+    loading,
   } = useContext(AppContext);
+
   const history = useHistory();
   const wid = parseInt(widParams);
   const exercises = routines[rid][wid] || [];
@@ -105,7 +107,7 @@ function WorkoutExercisesPage() {
         </Button>
       </Box>
 
-      {exercises.map((eid) => (
+      {!loading && exercises.map((eid) => (
         <ExerciseSetCard
           key={eid}
           eid={eid}

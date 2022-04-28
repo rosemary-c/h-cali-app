@@ -16,6 +16,7 @@ export const AppContextProvider = ({ children }) => {
   const [currentWorkoutId, setWorkout] = React.useState(initWid);
   const [workoutHistory, setWorkoutHistory] = React.useState(initHistory);
   const [routineId, setRoutineId] = React.useState("hamptons");
+  const [loading, setLoading] = React.useState(true);
   const location = useLocation();
 
   React.useEffect(() => {
@@ -25,6 +26,9 @@ export const AppContextProvider = ({ children }) => {
     setProgressions(progressionObj);
     setWorkout(wid);
     setWorkoutHistory(history);
+
+    // done loading from storage
+    setLoading(false);
   }, []);
 
   React.useEffect(() => {
@@ -73,6 +77,7 @@ export const AppContextProvider = ({ children }) => {
     setWorkoutHistory,
     routineId,
     setRoutineId,
+    loading,
   };
 
   return (
