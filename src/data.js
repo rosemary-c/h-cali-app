@@ -89,7 +89,7 @@ export const progressions = {
 			variation: '',
 		},
 		{
-			name: 'Bent Leg Push-Ups',
+			name: 'Bent Leg Raises',
 			setValue: 3,
 			repValue: 35,
 			variation: '',
