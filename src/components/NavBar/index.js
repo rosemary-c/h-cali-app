@@ -13,8 +13,10 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
+import InfoIcon from '@material-ui/icons/Info';
+import DeleteIcon from '@material-ui/icons/Delete';
 import HistoryIcon from "@material-ui/icons/History";
+import MenuIcon from '@material-ui/icons/Menu';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useHistory, useLocation } from 'react-router-dom';
 import AppContext from "context/appContext";
@@ -35,8 +37,9 @@ const useStyles = makeStyles((theme) => ({
     margin: "6px 0",
   },
   modal: {
-    margin: "25% 20%",
-    width: "fit-content"
+    margin: "20% auto",
+    padding: "8px",
+    width: "50%"
   },
   actions: {
     margin: theme.spacing(1),
@@ -52,22 +55,15 @@ export default function NavBar() {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
-  const [hideReset, setHideReset] = React.useState(false);
   const [showExerciseName, setShowExercise] = React.useState(false);
   const [showModal, setModal] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { resetStorage, routineId } = useContext(AppContext);
 
   React.useEffect(() => {
-    setHideReset(location.pathname.includes("/workouts"));
     setShowExercise(location.pathname.includes("/exercises/"));
   }, [location.pathname]);
   
-  const handleReset = () => {
-    resetStorage();
-    setModal(false);
-  };
-
   const handleBackToWorkout = () => {
     const path = location.pathname.split("/").slice(0, -1).join("/");
     history.push(path);
@@ -79,19 +75,26 @@ export default function NavBar() {
     history.push(`/routines/${routineId}/history`);
   };
 
+  const handleReset = () => {
+    resetStorage();
+    handleMenuClose();
+    setModal(false);
+    history.push(`/routines/${routineId}`);
+  };
+
   const eid = location.pathname.split("/").pop();
 
   return (
-    <AppBar position="relative">
+    <AppBar position='relative'>
       <Toolbar>
         <Grid container className={classes.grid}>
           <Grid item xs={2}>
             {showExerciseName ? (
               <IconButton
-                edge="start"
+                edge='start'
                 className={classes.menuButton}
-                color="inherit"
-                aria-label="menu"
+                color='inherit'
+                aria-label='menu'
                 onClick={handleBackToWorkout}
               >
                 <ArrowBackIcon />
@@ -100,72 +103,88 @@ export default function NavBar() {
               <div>
                 <IconButton
                   className={classes.menuButton}
-                  color="inherit"
-                  aria-label="menu"
+                  color='inherit'
+                  aria-label='menu'
                   onClick={handleMenuClick}
                 >
                   <MenuIcon />
                 </IconButton>
                 <Menu anchorEl={anchorEl} open={!!anchorEl} onClose={handleMenuClose}>
+                  <MenuItem
+                    onClick={() =>
+                      window.open('https://www.hybridcalisthenics.com/routine', '_blank')
+                    }
+                  >
+                    <ListItemIcon style={{ minWidth: 'unset', paddingRight: 8 }}>
+                      <InfoIcon />
+                    </ListItemIcon>
+                    <ListItemText>About Hybrid Calisthenics</ListItemText>
+                  </MenuItem>
                   <MenuItem onClick={handleGoToHistory}>
-                    <ListItemIcon style={{ minWidth: "unset", paddingRight: 8 }}>
+                    <ListItemIcon style={{ minWidth: 'unset', paddingRight: 8 }}>
                       <HistoryIcon />
                     </ListItemIcon>
-                    <ListItemText>View History</ListItemText>
+                    <ListItemText>View Workout History</ListItemText>
+                  </MenuItem>
+                  <MenuItem onClick={() => setModal(true)}>
+                    <ListItemIcon style={{ minWidth: 'unset', paddingRight: 8 }}>
+                      <DeleteIcon />
+                    </ListItemIcon>
+                    <ListItemText>Reset Progressions</ListItemText>
                   </MenuItem>
                 </Menu>
               </div>
             )}
           </Grid>
-          <Grid item xs={8} align="center">
+          <Grid item xs={8} align='center'>
             <Button
               className={classes.title}
               onClick={() => history.push(`/routines/${routineId}`)}
             >
-              <Typography variant="h6" className={classes.appName}>
-                {showExerciseName ? eid.replace("_", " ") : "H. Calisthenics"}
+              <Typography variant='h6' className={classes.appName}>
+                {showExerciseName ? eid.replace('_', ' ') : 'H. Calisthenics'}
               </Typography>
             </Button>
           </Grid>
-          <Grid item xs={2} align="right">
-            {!hideReset && (
+          <Grid item xs={2} align='right'>
+            {/*
               <Button
-                color="inherit"
+                color='inherit'
                 onClick={() => setModal(true)}
                 className={classes.resetButton}
               >
                 Reset
               </Button>
-            )}
+            */}
           </Grid>
         </Grid>
       </Toolbar>
       <Modal open={showModal} onClose={() => setModal(false)}>
         <Card className={classes.modal}>
           <CardContent>
-            <Typography>
+            <Typography variant="h6">
               Are you sure you want to reset your progress and clear your workout history?
             </Typography>
           </CardContent>
           <CardActions className={classes.actions}>
             <Grid container spacing={1}>
-              <Grid item xs={6} align="center">
+              <Grid item xs={6} align='center'>
                 <Button
                   onClick={handleReset}
-                  color="primary"
-                  size="medium"
-                  variant="outlined"
+                  color='primary'
+                  size='medium'
+                  variant='outlined'
                   fullWidth={true}
                 >
                   Yes
                 </Button>
               </Grid>
-              <Grid item xs={6} align="center">
+              <Grid item xs={6} align='center'>
                 <Button
                   onClick={() => setModal(false)}
-                  color="primary"
-                  size="medium"
-                  variant="outlined"
+                  color='primary'
+                  size='medium'
+                  variant='outlined'
                   fullWidth={true}
                 >
                   No

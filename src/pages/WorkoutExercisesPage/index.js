@@ -103,7 +103,7 @@ function WorkoutExercisesPage() {
           className={classes.stopwatchBtn}
           endIcon={<TimeIcon />}
         >
-          Show Time
+          Rest
         </Button>
       </Box>
 
